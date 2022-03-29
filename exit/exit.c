@@ -6,13 +6,13 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 10:53:16 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/28 15:34:59 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/03/29 07:34:29 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_exit(void)
+void	ft_exit(t_mshell *mshell)
 {
-	exit(42);
+	mshell->running = 0;
 }

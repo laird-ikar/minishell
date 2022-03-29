@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:07:22 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/28 15:25:49 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/03/29 07:33:38 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ typedef struct s_mshell
 # endif
 
 void	get_prompt(t_mshell *mshell);
-void	ft_exit(void);
+void	ft_exit(t_mshell *mshell);
 
 #endif
