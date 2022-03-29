@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 07:46:58 by bguyot            #+#    #+#              #
-#    Updated: 2022/03/28 15:25:52 by bguyot           ###   ########.fr        #
+#    Updated: 2022/03/29 09:19:31 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ MAIN		= ./src/
 FILES_MAIN	= minishell.c utils.c
 FILES_ECHO	=
 FILES_CD	=
-FILES_PWD	=
+FILES_PWD	= pwd.c
 FILES_EXPORT=
 FILES_UNSET	=
 FILES_ENV	=

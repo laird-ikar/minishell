@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/28 16:56:25 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/03/29 09:16:59 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,15 @@
 
 static void	init(t_mshell *mshell);
 static void	tini(t_mshell *mshell);
-static void	check_function(char *line);
+static void	(*check_function(t_mshell mshell))(t_mshell mshell);
 //static void	use_return(int *running);
-
-void 	check_leaks();
 
 int	main(void)
 {
 	t_mshell	*mshell;
-	int			pid;
-	int			res;
-char	*tmp;
+	void		(*func)(t_mshell);
 
-	mshell = malloc(sizeof (mshell));
+	mshell = malloc(sizeof (t_mshell));
 	init(mshell);
 	while (mshell->running)
 	{
@@ -38,25 +34,12 @@ char	*tmp;
 			exit(-3);
 		}
 		add_history(mshell->line);
-		pid = fork();
-		if (pid < 0)
-			perror("Error (☞ ಠ_ಠ)☞ ");
-		if (pid == 0)
-		{
-			tmp = mshell->line;
-			check_function(tmp);
-			exit(0);
-		}
-		else{
-			//use_return(&mshell->running);
-			wait(&res);
-			if (WEXITSTATUS(res) == 42)
-				mshell->running = 0;
-			}
+		func = check_function(mshell);
+		if (func)
+			func(mshell);
 	}
 	tini(mshell);
 	free(mshell);
-	check_leaks();//TEST
 }
 
 static void	init(t_mshell *mshell)
@@ -72,17 +55,18 @@ static void	tini(t_mshell *mshell)
 	free(mshell->prompt);
 }
 
-static void	check_function(char *line)
+static void	(*check_function(t_mshell mshell))(t_mshell mshell)
 {
-	printf("%s\n", line);
 	if (!ft_strncmp(line, "exit", 4))
-		ft_exit();
-	/**/
-	// else if (!ft_strcmp(mshell->line, ""))
-	// 	;
+		return (ft_exit);
+
+	else if (!ft_strncmp(mshell->line, "pwd", 3))
+		return (ft_pwd);
+	else if (ft_sp_null(mshell->line))
+		;
 	else
 		printf("No such command : %s\n", line);
-	printf("MOMAN G FINI\n");
+	return(NULL);
 }
 
 // static void	use_return(int *running)
