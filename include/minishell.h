@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/11 09:21:41 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/11 10:12:49 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_mshell
 	char		*line;
 	char		*path;
 	t_env		**env;
+	size_t		env_size;
 	t_token		**tokens;
 	t_command	*command;
 }	t_mshell;
@@ -70,6 +71,8 @@ typedef struct s_mshell
 
 void		update_prompt(t_mshell *mshell);
 void		ft_execute(t_command *command);
+void		ft_setenv(t_mshell *mshell, char *name, char *value);
+char		*ft_getenv(t_mshell *mshell, char *name);
 t_token		**ft_lex(char *line);
 t_command	*ft_parse(t_token **tokens);
 

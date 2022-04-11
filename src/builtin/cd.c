@@ -6,17 +6,19 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 09:19:29 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/11 09:39:24 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/11 10:03:47 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtin.h"
 
+static int	use_path(char *path, t_mshell *mshell);
+
 void	ft_cd(char **args, t_mshell *mshell)
 {
 	char	*tmp;
 
-	tmp = mshell->ft_getenv("PWD");
+	tmp = ft_getenv(mshell, "PWD");
 	if (args[1])
 	{
 		if (use_path(args[1], mshell))
@@ -24,21 +26,21 @@ void	ft_cd(char **args, t_mshell *mshell)
 	}
 	else
 	{
-		if (chdir(mshell->ft_getenv("HOME")))
+		if (chdir(ft_getenv(mshell, "HOME")))
 		{
 			printf("Error : bad home");
 			return ;
 		}
 	}
-	ft_setenv("OLDPWD", tmp);
-	ft_setenv("PWD", getcwd(NULL, 0));
+	ft_setenv(mshell, "OLDPWD", tmp);
+	ft_setenv(mshell, "PWD", getcwd(NULL, 0));
 }
 
-int	use_path(char *path, t_mshell *mshell)
+static int	use_path(char *path, t_mshell *mshell)
 {
 	if (!ft_strcmp(path, "-"))
 	{
-		if (chdir(mshell->ft_getenv("OLDPWD")))
+		if (chdir(ft_getenv(mshell, "OLDPWD")))
 		{
 			printf("Error : bad oldpwd");
 			return (1);
