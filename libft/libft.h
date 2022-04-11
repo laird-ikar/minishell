@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/17 07:41:55 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/11 09:12:56 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 /* Return the address of the first occurence of needle in haystack */
 char	*ft_strdup(const char *s1);
 /* Allocate and return a copy of s1 */
+char	*ft_strndup(const char *src, size_t n);
+/* Allocate and return a null terminated string of the n first char of s1 */
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 /* Allocate and return the substring starting at the index start
 ** of lenght len (NULL if allocation fails) */
