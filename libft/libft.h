@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/29 09:39:53 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/03/17 07:41:55 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,6 @@ int		ft_lstminint(t_list *lst);
 /* Return the minimum value of lst, interpreted as int */
 int		ft_sqrt(int nb);
 /* Return the squareroot of nb */
-int		ft_sp_null(char *src);
-/* Return 1 if src contains only NULL or space characters */
-
 
 void	ft_bzero(void *s, size_t n);
 /* Fill n byte of memory, at the address of s with 0s */

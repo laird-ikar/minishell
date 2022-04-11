@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 08:55:54 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/11 07:42:29 by bguyot           ###   ########.fr       */
+/*   Created: 2022/04/11 07:39:28 by bguyot            #+#    #+#             */
+/*   Updated: 2022/04/11 07:41:34 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "../../include/execute.h"
 
-# include "minishell.h"
-
-#endif
+void	save_stdfd(int stdfd[2])
+{
+	stdfd[0] = dup(0);
+	stdfd[1] = dup(1);
+}

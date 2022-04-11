@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/08 13:23:12 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/11 08:55:31 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "execute.h"
+# include "builtin.h"
+# include "lex.h"
+# include "parse.h"
 # include <stdio.h>
 # include <unistd.h>
-# include <readline/readline.h>
+# include <string.h>
+# include <errno.h>
 # include <readline/history.h>
+# include <readline/readline.h>
 
 # ifndef T_TOKEN
 #  define T_TOKEN

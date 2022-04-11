@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/08 13:22:16 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/11 09:14:14 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 
 	mshell = malloc(sizeof (t_mshell));
 	if (!mshell)
-		exit(printf("Error (☞ ಠ_ಠ)☞ %s", strerror));
+		exit(printf("Error (☞ ಠ_ಠ)☞ %s", strerror(errno)));
 	init(mshell);
 	while (mshell->running)
 	{
@@ -49,11 +49,12 @@ static void	init(t_mshell *mshell)
 	mshell->line = NULL;
 	mshell->path = NULL;
 	mshell->env_vars = NULL;
+	// TODO: getenv
 }
-/* TODO : getenv */
 
 static void	tini(t_mshell *mshell)
 {
 	free(mshell->prompt);
+	// COMBAK rl_clear_history
 	// rl_clear_history();
 }

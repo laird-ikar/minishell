@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 08:55:54 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/11 07:42:29 by bguyot           ###   ########.fr       */
+/*   Created: 2022/04/11 07:40:46 by bguyot            #+#    #+#             */
+/*   Updated: 2022/04/11 07:41:47 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef EXECUTE_H
+# define EXECUTE_H
 
 # include "minishell.h"
 
+void	save_stdfd(int stdfd[2]);
 #endif

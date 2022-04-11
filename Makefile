@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 07:46:58 by bguyot            #+#    #+#              #
-#    Updated: 2022/04/11 07:21:41 by bguyot           ###   ########.fr        #
+#    Updated: 2022/04/11 08:46:15 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,13 @@ MAIN			= ./src/main/
 BUILTIN			= ./src/builtin/
 LEX				= ./src/lex/
 PARSE			= ./src/parse/
-EXEC			= ./src/exec/
+EXEC			= ./src/execute/
 
 FILES_MAIN		= minishell.c utils.c
 FILES_BUILTIN	= cd.c echo.c env.c exit.c export.c pwd.c unset.c
-FILES_LEX		=
-FILES_PARSE		=
-FILES_EXEC	=
+FILES_LEX		= lex.c
+FILES_PARSE		= parse.c
+FILES_EXEC		= execute.c execute_utils.c
 
 SRC_MAIN		= $(addprefix $(MAIN),$(FILES_MAIN))
 SRC_BUILTIN		= $(addprefix $(BUILTIN),$(FILES_BUILTIN))
@@ -37,7 +37,7 @@ OBJ				= $(SRC:.c=.o)
 
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
-RM				= rm -f
+RM				= rm -rf
 LIBS			= -Llibft -lft -lreadline
 
 all: $(NAME)
@@ -54,6 +54,11 @@ fclean: clean
 	$(MAKE) fclean -C $(LIBFT)
 	$(RM) $(NAME)
 
-re:	fclean all
+re: fclean all
+
+update_lib: fclean
+	$(RM) $(LIBFT)
+	git clone git@github.com:laird-ikar/libft.git $(LIBFT)
+	$(RM) $(LIBFT).git $(LIBFT).gitignore
 
 .PHONY:	all clean fclean re

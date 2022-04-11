@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 08:55:54 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/11 07:42:29 by bguyot           ###   ########.fr       */
+/*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
+/*   Updated: 2022/04/11 08:39:52 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "../../include/parse.h"
 
-# include "minishell.h"
-
-#endif
+t_command	*ft_parse(t_token	**token)
+{
+	return (NULL);
+	(void) token;
+	// TODO: all parse
+}

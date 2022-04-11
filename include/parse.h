@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sp_null.c                                       :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/29 09:17:46 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/29 09:20:58 by bguyot           ###   ########.fr       */
+/*   Created: 2022/04/11 07:44:16 by bguyot            #+#    #+#             */
+/*   Updated: 2022/04/11 08:35:19 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PARSE_H
+# define PARSE_H
 
-int ft_sp_null(char *src)
-{
-  if (!src)
-    return (1);
-  while (*src)
-  {
-    if (!ft_isspace(*src))
-      return (0);
-    src++;
-  }
-  return (1);
-}
+# include "minishell.h"
+
+#endif

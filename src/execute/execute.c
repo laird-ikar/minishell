@@ -6,15 +6,19 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/08 14:16:36 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/11 08:39:42 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/execute.h"
+
+void	save_stdfd(int stdfd[2]);
+
 void	ft_execute(t_command *command)
 {
-	int	save0;
-	int	save1;
+	int	stdfd[2];
 
-	save0 = dup(0);
-	save1 = dup(1);
+	save_stdfd(stdfd);
+	// TODO: all execute
+	(void) command;
 }
