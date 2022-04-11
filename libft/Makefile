@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/23 13:24:40 by bguyot            #+#    #+#              #
-#    Updated: 2022/03/17 07:50:24 by bguyot           ###   ########.fr        #
+#    Updated: 2022/03/29 09:40:17 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ft_substr.c ft_lstmap.c ft_lstnew.c ft_lstiter.c ft_lstlast.c ft_lstsize.c		\
 ft_lstclear.c ft_lstdelone.c ft_lstadd_back.c ft_lstadd_front.c ft_utoa.c		\
 ft_ultoa_base.c ft_utoa_base.c ft_memcat.c ft_abs.c ft_lstcalendar.c ft_strcmp.c\
 ft_strcontain.c ft_tabmax.c ft_tabmin.c ft_tabmed.c ft_sort_int_tab.c			\
-ft_lstmax.c ft_lstmin.c get_next_line.c ft_min.c ft_max.c ft_sqrt.c 			\
+ft_lstmax.c ft_lstmin.c get_next_line.c ft_min.c ft_max.c ft_sqrt.c ft_sp_null.c\
 ft_printf/ft_printf.c ft_printf/ft_printf_chr.c ft_printf/ft_printf_int.c		\
 ft_printf/ft_printf_percent.c ft_printf/ft_printf_ptr.c							\
 ft_printf/ft_printf_str.c ft_printf/ft_printf_uint.c ft_printf/ft_printf_xint.c	\
