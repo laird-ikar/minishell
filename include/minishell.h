@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/11 08:55:31 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/11 09:21:41 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_mshell
 	char		*prompt;
 	char		*line;
 	char		*path;
-	t_env		**env_vars;
+	t_env		**env;
 	t_token		**tokens;
 	t_command	*command;
 }	t_mshell;

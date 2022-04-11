@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/11 09:14:14 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/11 09:21:48 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	init(t_mshell *mshell)
 	mshell->prompt = NULL;
 	mshell->line = NULL;
 	mshell->path = NULL;
-	mshell->env_vars = NULL;
+	mshell->env = NULL;
 	// TODO: getenv
 }
 
