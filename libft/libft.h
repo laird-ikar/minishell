@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/11 09:12:56 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/12 07:30:18 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 /* Compare the at most n first chars of s1 and s2
 ** and return the first diffrence (is ascii value) */
+int		ft_strcmp(const char *s1, const char *s2);
+/* Compare first chars of s1 and s2
+** and return the first diffrence (is ascii value) */
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 /* Compare the at most n first bytes of s1 and s2
 ** and return the first diffrence */
@@ -120,6 +123,9 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 /* Apply f to every element of lst */
 void	ft_sort_int_tab(int *tab, int size);
 /* Sort the the given array of size size */
+void	ft_print_tab(char **tab);
+/* Print the array of string, separating each line with a \n ;
+** the array must be NULL terminated */
 
 size_t	ft_strlen(const char *s);
 /* Return the size of s */
