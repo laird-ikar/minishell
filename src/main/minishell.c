@@ -6,55 +6,65 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/11 09:21:48 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/13 09:38:11 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	init(t_mshell *mshell);
+static void	init(t_mshell *mshell, char **envp);
 static void	tini(t_mshell *mshell);
+static void	set_env(t_mshell *t_mshell, char **envp);
 
-int	main(void)
+int main(int argc, char **argv, char **envp)
 {
-	t_mshell	*mshell;
+	t_mshell	mshell;
 
-	mshell = malloc(sizeof (t_mshell));
-	if (!mshell)
-		exit(printf("Error (☞ ಠ_ಠ)☞ %s", strerror(errno)));
-	init(mshell);
-	while (mshell->running)
+	init(&mshell, envp);
+	while (mshell.running)
 	{
-		update_prompt(mshell);
-		mshell->line = readline(mshell->prompt);
-		if (!mshell->line)
+		update_prompt(&mshell);
+		mshell.line = readline(mshell.prompt);
+		if (!mshell.line)
 			continue ;
-		add_history(mshell->line);
-		mshell->tokens = ft_lex(mshell->line);
-		if (!mshell->tokens)
-			continue ;
-		mshell->command = ft_parse(mshell->tokens);
-		if (!mshell->command)
-			continue ;
-		ft_execute(mshell->command);
+		add_history(mshell.line);
+		ft_lex(mshell.tokens, mshell.line);
+		ft_parse(&mshell.command, mshell.tokens);
+		ft_execute(&mshell.command);
 	}
-	tini(mshell);
-	free(mshell);
+	tini(&mshell);
+	(void) argc;
+	(void) argv;
 }
 
-static void	init(t_mshell *mshell)
+static void	init(t_mshell *mshell, char **envp)
 {
 	mshell->running = 1;
-	mshell->prompt = NULL;
+	mshell->env_size = 0;
 	mshell->line = NULL;
-	mshell->path = NULL;
-	mshell->env = NULL;
-	// TODO: getenv
+	ft_bzero(mshell->env, sizeof (t_env) * MAX_TAB);
+	set_env(mshell, envp);
 }
 
 static void	tini(t_mshell *mshell)
 {
-	free(mshell->prompt);
-	// COMBAK rl_clear_history
-	// rl_clear_history();
+	rl_clear_history();
+}
+
+static void	set_env(t_mshell *mshell, char **envp)
+{
+	char	*value;
+	char	name[MAX_TAB];
+	int		name_size;
+
+	while (*envp)
+	{
+		ft_printf("%s", *envp);
+		value = ft_strchr(*envp, '=');
+		name_size = value - *envp;
+		value++;
+		ft_strlcpy(name, *envp, name_size);
+		ft_setenv(mshell, name, value, EXPORTED);
+		envp++;
+	}
 }
