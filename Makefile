@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 07:46:58 by bguyot            #+#    #+#              #
-#    Updated: 2022/04/11 10:07:14 by bguyot           ###   ########.fr        #
+#    Updated: 2022/04/12 10:43:48 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,15 +39,17 @@ $(MAIN)execute_utils.c
 OBJ_TEST		= $(SRC_TEST:.c=.o)
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -fsanitize=address -g
+LDLIBS			= -Llibft -lft -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
+CPPFLAGS		= -I/Users/$(USER)/.brew/opt/readline/include -Iinclude -Ilibft
+
 RM				= rm -rf
-LIBS			= -Llibft -lft -lreadline
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(MAKE) -C $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(LIBS) $(OBJ)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $(NAME) $(LDLIBS) $(OBJ)
 
 clean:
 	$(MAKE) clean -C $(LIBFT)
@@ -63,9 +65,5 @@ update_lib: fclean
 	$(RM) $(LIBFT)
 	git clone git@github.com:laird-ikar/libft.git $(LIBFT)
 	$(RM) $(LIBFT).git $(LIBFT).gitignore
-
-test: $(OBJ_TEST) ./src/test/.test.o
-	$(MAKE) -C $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(LIBS) $(OBJ_TEST) ./src/test/.test.o
 
 .PHONY:	all clean fclean re
