@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 07:46:58 by bguyot            #+#    #+#              #
-#    Updated: 2022/04/12 10:43:48 by bguyot           ###   ########.fr        #
+#    Updated: 2022/04/14 09:45:20 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ EXEC			= ./src/execute/
 
 FILES_MAIN		= minishell.c utils.c
 FILES_BUILTIN	= cd.c echo.c env.c exit.c export.c pwd.c unset.c
-FILES_LEX		= lex.c
+FILES_LEX		= lex.c lex_utils.c
 FILES_PARSE		= parse.c
 FILES_EXEC		= execute.c execute_utils.c
 

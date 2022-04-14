@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/14 08:23:46 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/14 09:09:33 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <readline/readline.h>
 
 # ifndef MAX_TAB
-#  define MAX_TAB 2048
+#  define MAX_TAB 1024
 # endif
 
 # ifndef T_TOKEN

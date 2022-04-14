@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex.h                                              :+:      :+:    :+:   */
+/*   lex_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 07:43:54 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/14 09:38:46 by bguyot           ###   ########.fr       */
+/*   Created: 2022/04/14 09:35:17 by bguyot            #+#    #+#             */
+/*   Updated: 2022/04/14 09:47:11 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEX_H
-# define LEX_H
+#include "../../include/lex.h"
 
-# include "minishell.h"
+void	set_token(t_token *token, char *content, int type)
+{
+	ft_strlcpy(token->content, content, MAX_TAB);
+	token->type = type;
+}
 
-void	set_token(t_token *token, char *content, int type);
-int		is_cmd_char(char c);
-
-#endif
+int	is_cmd_char(char c)
+{
+	return (ft_isprint(c) && c != '|' && c != '>' && c != '<'
+		&& c != ' ' && c != '\'' && c != '\"');
+}
