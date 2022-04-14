@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/14 07:49:50 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/14 08:09:04 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_parse(&mshell.command, mshell.tokens);
 		ft_execute(&mshell.command);
 	}
-	tini(&mshell);
+	tini();
 	(void) argc;
 	(void) argv;
 }

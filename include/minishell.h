@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/13 09:02:33 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/14 08:23:46 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,32 @@
 # ifndef T_TOKEN
 #  define T_TOKEN
 
+/* in order :
+** empty token
+** str entre '
+** str entre "
+** any word (no space)
+** |
+** <<
+** <
+** >
+** >>
+** envvar
+*/
+
+enum{
+	VOID = 0,
+	SINGLE_QUOTE_STR = 1,
+	DOUBLE_QUOTE_STR = 2,
+	WORD = 3,
+	PIPE = 4,
+	IN_LIMIT = 5,
+	IN_FILE = 6,
+	OUT_FILE = 7,
+	OUT_APPEND = 8,
+	ENV_VAR = 9
+};
+
 typedef struct s_token
 {
 	int		type;
@@ -55,7 +81,7 @@ typedef struct s_token
 
 enum{
 	EXPORTED = 1,
-	LOCAL = 0,
+	LOCAL = 0
 };
 
 typedef struct s_env
