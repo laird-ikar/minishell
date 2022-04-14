@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:24:01 by bguyot            #+#    #+#             */
-/*   Updated: 2022/02/23 13:24:06 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/14 08:13:47 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	srclen;
 
+	if (!dst || !src)
+		return (0);
 	srclen = ft_strlen(src);
 	if (srclen + 1 < dstsize)
 	{
