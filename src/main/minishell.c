@@ -6,17 +6,17 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/13 09:38:11 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/14 07:35:01 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static void	init(t_mshell *mshell, char **envp);
-static void	tini(t_mshell *mshell);
+static void	tini(/*t_mshell *mshell*/);
 static void	set_env(t_mshell *t_mshell, char **envp);
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_mshell	mshell;
 
@@ -46,7 +46,7 @@ static void	init(t_mshell *mshell, char **envp)
 	set_env(mshell, envp);
 }
 
-static void	tini(t_mshell *mshell)
+static void	tini(/*t_mshell *mshell*/)
 {
 	rl_clear_history();
 }
@@ -54,14 +54,14 @@ static void	tini(t_mshell *mshell)
 static void	set_env(t_mshell *mshell, char **envp)
 {
 	char	*value;
-	char	name[MAX_TAB];
+	char	name[MAX_TAB] = "test du cul";
 	int		name_size;
 
 	while (*envp)
 	{
-		ft_printf("%s", *envp);
+		// ft_printf("%s", *envp);
 		value = ft_strchr(*envp, '=');
-		name_size = value - *envp;
+		name_size = value - *envp + 1;
 		value++;
 		ft_strlcpy(name, *envp, name_size);
 		ft_setenv(mshell, name, value, EXPORTED);

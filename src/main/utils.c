@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 08:14:08 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/13 09:20:05 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/14 07:48:33 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 void	update_prompt(t_mshell *mshell)
 {
+	char	*user;
+	char	*path;
+
 	getcwd(mshell->path, MAX_TAB);
-	*mshell->prompt = 0;
-	ft_strlcat(mshell->prompt, "┌(", 2);
-	ft_strlcat(mshell->prompt, ft_getenv(mshell, "USER"),
-		ft_strlen(ft_getenv(mshell, "USER")));
-	ft_strlcat(mshell->prompt, "@minishell)─[", 2);
-	ft_strlcat(mshell->prompt, mshell->path, ft_strlen(mshell->path));
-	ft_strlcat(mshell->prompt, "]\n└─$", 2);
+	user = ft_getenv(mshell, "USER");
+	path = mshell->path;
+	ft_bzero(mshell->prompt, MAX_TAB);
+	ft_strlcat(mshell->prompt, "┌(\e[35m", MAX_TAB);
+	ft_strlcat(mshell->prompt, user, MAX_TAB);
+	ft_strlcat(mshell->prompt, "\e[97m@\e[95mminishell\e[39m)─[\e[91m", MAX_TAB);
+	ft_strlcat(mshell->prompt, path, MAX_TAB);
+	ft_strlcat(mshell->prompt, "\e[39m]\n└─$ ", MAX_TAB);
 }
 
 void	ft_setenv(t_mshell *mshell, char *name, char *value, int type)
@@ -41,7 +45,7 @@ void	ft_setenv(t_mshell *mshell, char *name, char *value, int type)
 	if (i < MAX_TAB)
 	{
 		ft_strlcpy(mshell->env[i].name, name, MAX_TAB);
-		ft_strlcpy(mshell->env[i].value, name, MAX_TAB);
+		ft_strlcpy(mshell->env[i].value, value, MAX_TAB);
 		mshell->env[i].is_exported = type;
 		return ;
 	}
@@ -52,7 +56,7 @@ char	*ft_getenv(t_mshell *mshell, char *name)
 	int	i;
 
 	i = 0;
-	while (i < MAX_TAB && *mshell->env[i].name)
+	while (i < MAX_TAB && mshell->env[i].name[0])
 	{
 		if (!ft_strcmp(mshell->env[i].name, name))
 			return (mshell->env[i].value);
