@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 08:14:08 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/14 07:48:33 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/15 19:36:59 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ void	update_prompt(t_mshell *mshell)
 	char	*user;
 	char	*path;
 
-	getcwd(mshell->path, MAX_TAB);
 	user = ft_getenv(mshell, "USER");
-	path = mshell->path;
+	path = ft_getenv(mshell, "PWD");
 	ft_bzero(mshell->prompt, MAX_TAB);
 	ft_strlcat(mshell->prompt, "┌(\e[35m", MAX_TAB);
 	ft_strlcat(mshell->prompt, user, MAX_TAB);
