@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 07:43:32 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/14 09:44:52 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/21 13:29:21 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	chevrons(char **line, t_token **token, int *i);
 static void	var(char **line, t_token **tokens, int *i);
 static void	quotes(char **line, t_token **tokens, int *i);
+static void	expand(t_tokens tokens[MAX_TAB]);
 
 void	ft_lex(t_token tokens[MAX_TAB], char *line)
 {
@@ -41,6 +42,31 @@ void	ft_lex(t_token tokens[MAX_TAB], char *line)
 			set_token(&tokens[i++], word, WORD);
 		}
 		line++;
+	}
+	expand(tokens);
+}
+
+static void	expand(t_tokens tokens[MAX_TAB])
+{
+	int		i;
+	char	*ptr;
+
+	i = 0;
+	while (i < MAX_TAB || tokens[i].type != VOID)
+	{
+		if (tokens[i].type == ENV_VAR)
+			tokens[i].content = ft_getenv(tokens[i].content);
+		if (token[i].type == DOUBLE_QUOTE_STR)
+		{
+			ptr = token[i].content;
+			while (ptr && *ptr)
+			{
+				if (*ptr == '$')
+					;//TODO: change string but jsp comment mdr
+				ptr = strchr(ptr, ' ');
+				ptr++;
+			}
+		}
 	}
 }
 
