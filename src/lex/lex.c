@@ -6,32 +6,31 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 07:43:32 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/21 13:29:21 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/22 10:12:50 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lex.h"
 
 static void	chevrons(char **line, t_token **token, int *i);
-static void	var(char **line, t_token **tokens, int *i);
-static void	quotes(char **line, t_token **tokens, int *i);
-static void	expand(t_tokens tokens[MAX_TAB]);
+static void	var(char **line, t_token **token, int *i);
+static void	quotes(char **line, t_token **token, int *i);
 
-void	ft_lex(t_token tokens[MAX_TAB], char *line)
+void	ft_lex(t_mshell *mshell, t_token token[MAX_TAB], char *line)
 {
 	int		i;
 	char	word[MAX_TAB];
 	int		j;
 
 	i = 0;
-	ft_bzero(tokens, sizeof (t_token) * MAX_TAB);
+	ft_bzero(token, sizeof (t_token) * MAX_TAB);
 	while (i < MAX_TAB && *line)
 	{
 		if (*line == '|')
-			set_token(&tokens[i++], "|", PIPE);
-		chevrons(&line, &tokens, &i);
-		var(&line, &tokens, &i);
-		quotes(&line, &tokens, &i);
+			set_token(&token[i++], "|", PIPE);
+		chevrons(&line, &token, &i);
+		var(&line, &token, &i);
+		quotes(&line, &token, &i);
 		if (is_cmd_char(*line))
 		{
 			ft_bzero(word, MAX_TAB);
@@ -39,60 +38,36 @@ void	ft_lex(t_token tokens[MAX_TAB], char *line)
 			while (*line && is_cmd_char(*line) && j < MAX_TAB)
 				word[j++] = *(line++);
 			line--;
-			set_token(&tokens[i++], word, WORD);
+			set_token(&token[i++], word, WORD);
 		}
 		line++;
 	}
-	expand(tokens);
+	expand(token);
 }
 
-static void	expand(t_tokens tokens[MAX_TAB])
-{
-	int		i;
-	char	*ptr;
-
-	i = 0;
-	while (i < MAX_TAB || tokens[i].type != VOID)
-	{
-		if (tokens[i].type == ENV_VAR)
-			tokens[i].content = ft_getenv(tokens[i].content);
-		if (token[i].type == DOUBLE_QUOTE_STR)
-		{
-			ptr = token[i].content;
-			while (ptr && *ptr)
-			{
-				if (*ptr == '$')
-					;//TODO: change string but jsp comment mdr
-				ptr = strchr(ptr, ' ');
-				ptr++;
-			}
-		}
-	}
-}
-
-static void	chevrons(char **line, t_token **tokens, int *i)
+static void	chevrons(char **line, t_token **token, int *i)
 {
 	if (**line == '<')
 	{
 		if (*(*line + 1) == '<')
-			set_token(&(*tokens)[(*i)++], "<<", IN_LIMIT);
+			set_token(&(*token)[(*i)++], "<<", IN_LIMIT);
 		if (*(*line + 1) == '<')
 			(*line)++;
 		else
-			set_token(&(*tokens)[(*i)++], "<", IN_FILE);
+			set_token(&(*token)[(*i)++], "<", IN_FILE);
 	}
 	if (**line == '>')
 	{
 		if (*(*line + 1) == '>')
-			set_token(&(*tokens)[(*i)++], ">>", OUT_APPEND);
+			set_token(&(*token)[(*i)++], ">>", OUT_APPEND);
 		if (*(*line + 1) == '>')
 			(*line)++;
 		else
-			set_token(&(*tokens)[(*i)++], ">", OUT_FILE);
+			set_token(&(*token)[(*i)++], ">", OUT_FILE);
 	}
 }
 
-static void	quotes(char **line, t_token **tokens, int *i)
+static void	quotes(char **line, t_token **token, int *i)
 {
 	int		j;
 	char	word[MAX_TAB];
@@ -104,7 +79,7 @@ static void	quotes(char **line, t_token **tokens, int *i)
 		j = 0;
 		while (**line != '\'' && **line && j < MAX_TAB)
 			word[j++] = *((*line)++);
-		set_token(&(*tokens)[(*i)++], word, SINGLE_QUOTE_STR);
+		set_token(&(*token)[(*i)++], word, SINGLE_QUOTE_STR);
 	}
 	if (**line == '\"')
 	{
@@ -113,11 +88,11 @@ static void	quotes(char **line, t_token **tokens, int *i)
 		j = 0;
 		while (**line != '\"' && **line && j < MAX_TAB)
 			word[j++] = *((*line)++);
-		set_token(&(*tokens)[(*i)++], word, DOUBLE_QUOTE_STR);
+		set_token(&(*token)[(*i)++], word, DOUBLE_QUOTE_STR);
 	}
 }
 
-static void	var(char **line, t_token **tokens, int *i)
+static void	var(char **line, t_token **token, int *i)
 {
 	int		j;
 	char	word[MAX_TAB];
@@ -126,7 +101,7 @@ static void	var(char **line, t_token **tokens, int *i)
 	{
 		if (*(++(*line)) == ' ')
 		{
-			set_token(&(*tokens)[(*i)++], "$", WORD);
+			set_token(&(*token)[(*i)++], "$", WORD);
 		}
 		else
 		{
@@ -134,7 +109,7 @@ static void	var(char **line, t_token **tokens, int *i)
 			j = 0;
 			while (**line != ' ' && **line && j < MAX_TAB)
 				word[j++] = *((*line)++);
-			set_token(&(*tokens)[(*i)++], word, ENV_VAR);
+			set_token(&(*token)[(*i)++], word, ENV_VAR);
 		}
 	}
 }

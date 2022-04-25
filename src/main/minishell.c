@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/14 08:09:04 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/22 10:12:13 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	main(int argc, char **argv, char **envp)
 		if (!mshell.line)
 			continue ;
 		add_history(mshell.line);
-		ft_lex(mshell.tokens, mshell.line);
-		ft_parse(&mshell.command, mshell.tokens);
+		ft_lex(mshell, mshell.token, mshell.line);
+		ft_parse(&mshell.command, mshell.token);
 		ft_execute(&mshell.command);
 	}
 	tini();

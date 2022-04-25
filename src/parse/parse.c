@@ -12,14 +12,14 @@
 
 #include "../../include/parse.h"
 
-void	ft_parse(t_command *command, t_token tokens[MAX_TAB])
+void	ft_parse(t_command *command, t_token token[MAX_TAB])
 {
 	(void) command;
 	// COMBAK: lex tester here
-	while ((*tokens).type)
+	while ((*token).type)
 	{
-		printf("type : %d\ncontent : %s\n\n", (*tokens).type, (*tokens).content);
-		tokens++;
+		printf("type : %d\ncontent : %s\n\n", (*token).type, (*token).content);
+		token++;
 	}
 	// TODO: all parse
 }
