@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/25 07:10:58 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/25 07:30:02 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-# include "execute.h"
-# include "builtin.h"
-# include "lex.h"
-# include "parse.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
@@ -97,7 +93,7 @@ typedef struct s_env
 
 typedef struct s_simple_command
 {
-	char	args[][];
+	char	args[MAX_TAB][MAX_TAB];
 }	t_simple_command;
 # endif
 
