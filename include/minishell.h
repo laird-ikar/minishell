@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/22 10:19:35 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/25 07:10:58 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,15 @@ typedef struct s_env
 	char	name[MAX_TAB];
 	char	value[MAX_TAB];
 }	t_env;
+# endif
+
+# ifndef T_SIMPLE_COMMAND
+#  define T_SIMPLE_COMMAND
+
+typedef struct s_simple_command
+{
+	char	args[][];
+}	t_simple_command;
 # endif
 
 # ifndef T_COMMAND
