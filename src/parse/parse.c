@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/14 08:16:53 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/25 09:00:38 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void	ft_parse(t_command *command, t_token token[MAX_TAB])
 {
-	(void) command;
-	// COMBAK: lex tester here
-	while ((*token).type)
+	int	i;
+	int	command_number;
+
+	i = 0;
+	command_number = 0;
+	while (i < MAX_TAB)
 	{
-		printf("type : %d\ncontent : %s\n\n", (*token).type, (*token).content);
-		token++;
+		command[command_number]
+		i++;
 	}
-	// TODO: all parse
 }
