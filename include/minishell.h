@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/25 07:30:02 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/25 08:43:40 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 ** >
 ** >>
 ** envvar
+** VAR=value
 */
 
 enum{
@@ -51,7 +52,8 @@ enum{
 	IN_FILE = 6,
 	OUT_FILE = 7,
 	OUT_APPEND = 8,
-	ENV_VAR = 9
+	ENV_VAR = 9,
+	SET_VAR = 10
 };
 
 typedef struct s_token

@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 07:43:32 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/25 07:51:30 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/25 08:42:45 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 static void	chevrons(char **line, t_token **token, int *i);
 static void	var(char **line, t_token **token, int *i);
 static void	quotes(char **line, t_token **token, int *i);
+static void	words(char **line, t_token **token, int *i);
 
 void	ft_lex(t_mshell *mshell, t_token token[MAX_TAB], char *line)
 {
 	int		i;
-	char	word[MAX_TAB];
-	int		j;
 
 	i = 0;
 	ft_bzero(token, sizeof (t_token) * MAX_TAB);
@@ -31,15 +30,7 @@ void	ft_lex(t_mshell *mshell, t_token token[MAX_TAB], char *line)
 		chevrons(&line, &token, &i);
 		var(&line, &token, &i);
 		quotes(&line, &token, &i);
-		if (is_cmd_char(*line))
-		{
-			ft_bzero(word, MAX_TAB);
-			j = 0;
-			while (*line && is_cmd_char(*line) && j < MAX_TAB)
-				word[j++] = *(line++);
-			line--;
-			set_token(&token[i++], word, WORD);
-		}
+		words(&line, &token, &i);
 		if (*line)
 			line++;
 	}
@@ -113,4 +104,22 @@ static void	var(char **line, t_token **token, int *i)
 			set_token(&(*token)[(*i)++], word, ENV_VAR);
 		}
 	}
+}
+
+static void	words(char **line, t_token **token, int *i)
+{
+	int		j;
+	char	word[MAX_TAB];
+
+	if (is_cmd_char(**line))
+	{
+		ft_bzero(word, MAX_TAB);
+		j = 0;
+		while (*line && is_cmd_char(**line) && j < MAX_TAB)
+			word[j++] = *((*line)++);
+		(*line)--;
+		set_token(&(*token)[(*i)++], word, WORD);
+	}
+	if (ft_strchr((*token)[(*i)++].content, '='))
+		(*token)[(*i)++].type = SET_VAR;
 }
