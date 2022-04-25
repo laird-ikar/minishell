@@ -6,21 +6,22 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 09:25:13 by bguyot            #+#    #+#             */
-/*   Updated: 2022/03/11 07:24:05 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/20 12:22:43 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+#include "libft.h"
+
 static char	*return_value(char	*res);
+static void	init(t_gnl *gnl);
 
 char	*get_next_line(int fd)
 {
 	t_gnl	gnl;
 
-	gnl.ret = 1;
-	gnl.i = 1;
-	gnl.res = ft_calloc(1, 1);
+	init(&gnl);
 	if (fd < 0 || BUFFER_SIZE < 1 || !gnl.res || read(fd, gnl.buff, 0) < 0)
 	{
 		if (gnl.res)
@@ -44,10 +45,21 @@ char	*get_next_line(int fd)
 
 static char	*return_value(char	*res)
 {
+	static int	for_the_bonus_pwease;
+
+	(void) for_the_bonus_pwease;
 	if (res[0] == '\0')
 	{
 		free(res);
 		return (NULL);
 	}
 	return (res);
+}
+
+static void	init(t_gnl *gnl)
+{
+	gnl->ret = 1;
+	gnl->i = 1;
+	gnl->res = ft_calloc(1, 1);
+	ft_bzero(gnl->buff, (BUFFER_SIZE + 2) * sizeof (char));
 }

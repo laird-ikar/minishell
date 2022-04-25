@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:23:44 by bguyot            #+#    #+#             */
-/*   Updated: 2022/02/23 13:23:49 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/25 08:10:51 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strdup(const char *src)
 	char	*dst;
 
 	size = 0;
+	if (!src)
+		return (NULL);
 	while (src[size])
 		size++;
 	dst = (char *) malloc(size + 1);

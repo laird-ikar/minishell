@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_tabjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 09:02:46 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/25 08:03:32 by bguyot           ###   ########.fr       */
+/*   Created: 2022/04/25 07:19:25 by bguyot            #+#    #+#             */
+/*   Updated: 2022/04/25 07:33:33 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strndup(const char *src, size_t n)
+char	*ft_tabjoin(char **tab, char *sep)
 {
 	char	*res;
+	char	*tmp;
 
-	if (!src)
-		return (NULL);
-	if (ft_strlen(src) <= n)
-		return (ft_strdup(src));
-	res = ft_calloc (n + 1, sizeof(char));
-	if (!res)
-		return (NULL);
-	ft_memmove(res, src, n);
+	res = NULL;
+	tmp = NULL;
+	while (*tab && *(tab + 1))
+	{
+		tmp = ft_strjoin(res, *tab);
+		free (res);
+		res = tmp;
+		tmp = ft_strjoin(res, sep);
+		free (res);
+		res = tmp;
+		tab++;
+	}
+	tmp = ft_strjoin(res, *tab);
+	free (res);
+	res = tmp;
 	return (res);
 }

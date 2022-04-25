@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/12 07:30:18 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/25 07:56:36 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*get_next_line(int fd);
 /* Return the next line of the file described by fd
 ** NULL is nothing can be read*/
+char	*ft_tabjoin(char **tab, char *sep);
+/* Join all the char* of tab in one big string, separating them with sep */
 
 t_list	*ft_lstnew(void *cont);
 /* Create and return a new list with first element cont, and a NULL nx
