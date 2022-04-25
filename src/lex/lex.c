@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 07:43:32 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/22 10:12:50 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/25 07:51:30 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ void	ft_lex(t_mshell *mshell, t_token token[MAX_TAB], char *line)
 			line--;
 			set_token(&token[i++], word, WORD);
 		}
-		line++;
+		if (*line)
+			line++;
 	}
-	expand(token);
+	expand(mshell, token);
 }
 
 static void	chevrons(char **line, t_token **token, int *i)
