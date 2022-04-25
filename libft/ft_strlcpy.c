@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:24:01 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/25 08:22:53 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/25 08:24:02 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	size_t	srclen;
 
 	if (!dst)
-		return (NULL);
+		return (0);
 	if (!src)
 		return (ft_strlcpy(dst, "", dstsize));
 	srclen = ft_strlen(src);
