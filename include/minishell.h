@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/25 08:43:40 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/26 08:09:28 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+
 
 # ifndef MAX_TAB
 #  define MAX_TAB 1024
@@ -47,12 +51,12 @@ enum{
 	SINGLE_QUOTE_STR = 1,
 	DOUBLE_QUOTE_STR = 2,
 	WORD = 3,
-	PIPE = 4,
+	ENV_VAR = 4,
 	IN_LIMIT = 5,
 	IN_FILE = 6,
-	OUT_FILE = 7,
-	OUT_APPEND = 8,
-	ENV_VAR = 9,
+	OUT_APPEND = 7,
+	OUT_FILE = 8,
+	PIPE = 9,
 	SET_VAR = 10
 };
 
@@ -96,6 +100,7 @@ typedef struct s_env
 typedef struct s_simple_command
 {
 	char	args[MAX_TAB][MAX_TAB];
+	int		nb_args;
 }	t_simple_command;
 # endif
 
@@ -104,6 +109,12 @@ typedef struct s_simple_command
 
 typedef struct s_command
 {
+	t_simple_command	s_command[MAX_TAB];
+	char				eof_marker[MAX_TAB];
+	int					in_fd;
+	int					out_fd;
+	int					is_valid;
+	int					do_read_stdin;
 }	t_command;
 # endif
 
