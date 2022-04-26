@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/26 08:19:15 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/26 09:33:47 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 
 # ifndef MAX_TAB
-#  define MAX_TAB 1024
+#  define MAX_TAB 128
 # endif
 
 # ifndef T_TOKEN
@@ -99,7 +99,11 @@ typedef struct s_env
 
 typedef struct s_simple_command
 {
-	char	args[MAX_TAB][MAX_TAB];
+	char	arg[MAX_TAB][MAX_TAB];
+	char	eof_marker[MAX_TAB];
+	int		in_fd;
+	int		out_fd;
+	int		do_read_stdin;
 	int		nb_args;
 }	t_simple_command;
 # endif
@@ -110,11 +114,7 @@ typedef struct s_simple_command
 typedef struct s_command
 {
 	t_simple_command	s_command[MAX_TAB];
-	char				eof_marker[MAX_TAB];
-	int					in_fd;
-	int					out_fd;
 	int					is_valid;
-	int					do_read_stdin;
 }	t_command;
 # endif
 
