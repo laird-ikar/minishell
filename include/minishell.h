@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/26 09:33:47 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/27 09:27:33 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-
 
 # ifndef MAX_TAB
 #  define MAX_TAB 128
@@ -57,7 +56,6 @@ enum{
 	OUT_APPEND = 7,
 	OUT_FILE = 8,
 	PIPE = 9,
-	SET_VAR = 10
 };
 
 typedef struct s_token
@@ -100,10 +98,6 @@ typedef struct s_env
 typedef struct s_simple_command
 {
 	char	arg[MAX_TAB][MAX_TAB];
-	char	eof_marker[MAX_TAB];
-	int		in_fd;
-	int		out_fd;
-	int		do_read_stdin;
 	int		nb_args;
 }	t_simple_command;
 # endif
@@ -114,7 +108,12 @@ typedef struct s_simple_command
 typedef struct s_command
 {
 	t_simple_command	s_command[MAX_TAB];
+	int					in_fd;
+	int					out_fd;
 	int					is_valid;
+	char				eof_marker[MAX_TAB];
+	int					do_read_stdin;
+	int					n;
 }	t_command;
 # endif
 
@@ -135,7 +134,7 @@ typedef struct s_mshell
 # endif
 
 void		update_prompt(t_mshell *mshell);
-void		ft_execute(t_command *command);
+void		ft_execute(t_mshell *mshell, t_command *command);
 void		ft_setenv(t_mshell *mshell, char *name, char *value, int type);
 void		ft_lex(t_mshell *mshell, t_token token[MAX_TAB], char *line);
 void		ft_parse(t_command *command, t_token token[MAX_TAB]);

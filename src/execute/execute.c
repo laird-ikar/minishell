@@ -6,30 +6,65 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/27 07:29:53 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/27 09:42:29 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
 
-void	save_stdfd(int stdfd[2]);
+static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i);
+static int	simple_exec(t_simple_command cmd, t_mshell *mshell);
 
-void	ft_execute(t_command *command)
+typedef int (*)(char **args, t_mshell *mshell)	t_builtin;
+
+t_builtin										g_builtin[]
+	= {cd, echo, env, exit, export, pwd, unset};
+
+void	ft_execute(t_mshell *mshell, t_command *command)
 {
-	int i = -1;
-	while (command->s_command[++i].nb_args)
+	int		i;
+	t_exec	exec;
+
+	if (!command->is_valid)
+		return ;
+	i = -1;
+	exec.saved_in = dup(0);
+	exec.saved_out = dup(1);
+	exec.used_in = command->in_fd;
+	// TODO: implement << input
+	while (++i < command->n)
 	{
-		int j = -1;
-		while (++j < command->s_command[i].nb_args)
-		{
-			printf("%s ", command->s_command[i].arg[j]);
-		}
-		printf("in fd : %d\n", command->s_command[i].in_fd);
-		printf("out fd : %d\n", command->s_command[i].out_fd);
-		printf("do_read_stdin : %d (stops at : %s)\n", command->s_command[i].do_read_stdin,
-			command->s_command[i].eof_marker);
-		printf("\n\n|\n\n");
+		fd_game(&exec, command, i);
+		pid_game(&exec, mshell, command, i);
 	}
-	printf("is valid : %d\n", command->is_valid);
-	(void) command;
+	dup2(exec.saved_in, 0);
+	dup2(exec.saved_out, 1);
+}
+
+static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i)
+{
+	char	*tmp;
+
+	exec->pid = fork();
+	if (!exec->pid)
+	{
+		exec->ret = simple_exec(cmd->s_command[i], mshell);
+		exit(exec->ret);
+	}
+	else
+	{
+		waitpid(exec->pid, &exec->ret, 0);
+		tmp = ft_itoa(exec->ret);
+		ft_setenv(mshell, "?", tmp, LOCAL);
+		free (tmp);
+	}
+}
+
+static int	simple_exec(t_simple_command cmd, t_mshell *mshell)
+{
+	int	ret;
+
+	ret = is_builtin(cmd.arg[0]);
+	if (ret >= 0)
+		(g_builtin[ret])(cmd.arg, mshell);
 }

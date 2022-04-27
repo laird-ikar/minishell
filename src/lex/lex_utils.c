@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 09:35:17 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/25 08:36:18 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/27 08:59:57 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ static void	check_splits(char **split, t_mshell *mshell, int k)
 
 	if (split[k][0] == '$')
 	{
-		printf("%s\n", split[k]);
 		tmp = ft_getenv(mshell, split[k] + 1);
-		printf("%s\n", split[k] + 1);
 		if (tmp)
 			free(split[k]);
 		if (tmp)
