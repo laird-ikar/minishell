@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/27 07:28:59 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/27 07:56:45 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_parse(t_command *command, t_token token[MAX_TAB])
 	reset_command(command);
 	i = 0;
 	command_number = 0;
-	while (i < MAX_TAB)
+	while (i < MAX_TAB && token[i].type)
 	{
 		if (token[i].type >= SINGLE_QUOTE_STR && token[i].type <= ENV_VAR)
 			add_arg(&command->s_command[command_number], token[i].content);
@@ -69,16 +69,15 @@ static void	reset_command(t_command *cmd)
 
 static void	add_arg(t_simple_command *c, char arg[MAX_TAB])
 {
-	return ;
-	(void) c;
-	(void) arg;
+	ft_strlcpy(c->arg[(c->nb_args)++], arg, MAX_TAB);
 }
 
 static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i, int n)
 {
-	if (tk[*i].type >= IN_LIMIT && tk[*i].type <= OUT_APPEND)
+	// printf("%d <= %d <= %d ? %d\n", IN_LIMIT, tk[*i].type, OUT_FILE, tk[*i].type >= IN_LIMIT && tk[*i].type <= OUT_APPEND);
+	if (tk[*i].type >= IN_LIMIT && tk[*i].type <= OUT_FILE)
 	{
-		printf("%d %d\n", *i, *i + 1);
+		// printf("%d %d\n", *i, *i + 1);
 		if (!tk[(*i)++].type)
 		{
 			printf("Unexpected last token : %s\n", tk[*i - 1].content);
@@ -86,6 +85,8 @@ static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i, int n)
 		}
 		else if (tk[(*i) - 1].type == IN_FILE)
 		{
+			if (c->s_command[n].in_fd != 0)
+				close(c->s_command[n].in_fd);
 			c->s_command[n].in_fd = open(tk[*i].content, O_RDONLY);
 			if (c->s_command[n].in_fd < 0)
 			{
@@ -94,8 +95,14 @@ static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i, int n)
 			}
 		}
 		else if (tk[*i - 1].type == OUT_FILE || tk[*i - 1].type == OUT_APPEND)
-			c->s_command[n].out_fd = open(tk[*i].content, O_WRONLY | O_CREAT
-					| (O_APPEND * (tk[*i - 1].type % 2)));
+		{
+			if (c->s_command[n].out_fd != 1)
+				close(c->s_command[n].out_fd);
+			if (tk[*i - 1].type == OUT_FILE)
+				c->s_command[n].out_fd = open(tk[*i].content, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			else
+				c->s_command[n].out_fd = open(tk[*i].content, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		}
 		else if (tk[*i - 1].type == IN_LIMIT)
 		{
 			ft_strlcpy(c->s_command[n].eof_marker, tk[*i].content, MAX_TAB);
