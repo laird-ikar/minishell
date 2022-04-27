@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/26 09:39:38 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/27 07:28:59 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ void	ft_parse(t_command *command, t_token token[MAX_TAB])
 		}
 		i++;
 	}
+
+	// (void) command;
+ 	// // COMBAK: lex tester here
+	// printf("\n\n");
+ 	// while ((*token).type)
+ 	// {
+ 	// 	printf("type : %d\ncontent : %s\n\n", (*token).type, (*token).content);
+ 	// 	token++;
+ 	// }
 }
 
 static void	reset_command(t_command *cmd)
