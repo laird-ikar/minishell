@@ -6,14 +6,14 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 08:44:40 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 11:58:08 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static void	init(t_mshell *mshell, char **envp);
-static void	tini(void);
+static void	tini(t_mshell *mshell);
 static void	set_env(t_mshell *t_mshell, char **envp);
 
 int	main(int argc, char **argv, char **envp)
@@ -32,23 +32,46 @@ int	main(int argc, char **argv, char **envp)
 		ft_parse(&mshell.command, mshell.token);
 		ft_execute(&mshell, &mshell.command);
 	}
-	tini();
+	tini(&mshell);
 	(void) argc;
 	(void) argv;
 }
 
 static void	init(t_mshell *mshell, char **envp)
 {
+	int j;
+	int	i;
+
 	mshell->running = 1;
 	mshell->env_size = 0;
 	mshell->line = NULL;
 	ft_bzero(mshell->env, sizeof (t_env) * MAX_TAB);
 	ft_bzero(mshell->token, sizeof (t_token) * MAX_TAB);
 	set_env(mshell, envp);
+	i = 0;
+	while (i < MAX_TAB)
+	{
+		j = 0;
+		while (j < MAX_TAB)
+		mshell->command.s_command[i].arg[j++]
+			= ft_calloc(MAX_TAB, sizeof (char));
+		i++;
+	}
 }
 
-static void	tini(void)
+static void	tini(t_mshell *mshell)
 {
+	int j;
+	int i;
+
+	i = 0;
+	while (i < MAX_TAB)
+	{
+		j = 0;
+		while (j < MAX_TAB)
+		free(mshell->command.s_command[i].arg[j++]);
+		i++;
+	}
 	rl_clear_history();
 }
 

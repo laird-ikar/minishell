@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 08:48:59 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 09:42:58 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	simple_exec(t_simple_command cmd, t_mshell *mshell);
 static int	is_builtin(char arg[MAX_TAB]);
 static void	update_ret(t_mshell *mshell, int ret);
 
-typedef int	(*t_builtin)(char args[MAX_TAB][MAX_TAB], t_mshell *mshell);
+typedef int	(*t_builtin)(char *args[MAX_TAB], t_mshell *mshell);
 
 t_builtin	g_builtin[]
 	= {ft_cd, ft_echo, ft_env, ft_exit, ft_export, ft_pwd, ft_unset};

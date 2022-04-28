@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 08:21:53 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 12:03:34 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,17 @@ static void	reset_command(t_command *cmd)
 		cmd->s_command[i].nb_args = 0;
 		j = 0;
 		while (j < MAX_TAB)
-			cmd->s_command[i].arg[j++][0] = '\0';
+		{
+			free(cmd->s_command[i].arg[j]);
+			cmd->s_command[i].arg[j++] = NULL;
+		}
 		i++;
 	}
 }
 
-static void	add_arg(t_simple_command *c, char arg[MAX_TAB])
+static void	add_arg(t_simple_command *c, char *arg)
 {
-	ft_strlcpy(c->arg[(c->nb_args)++], arg, MAX_TAB);
+	c->arg[(c->nb_args)++] = ft_strdup(arg);
 }
 
 static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i)
