@@ -6,14 +6,14 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/27 09:31:31 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 07:28:17 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parse.h"
 
 static void	add_arg(t_simple_command *c, char arg[MAX_TAB]);
-static void	fd_gestion(t_command *command, t_token tk[MAX_TAB], int *i, int n);
+static void	fd_gestion(t_command *command, t_token tk[MAX_TAB], int *i);
 static void	reset_command(t_command *cmd);
 
 void	ft_parse(t_command *command, t_token token[MAX_TAB])
@@ -27,7 +27,7 @@ void	ft_parse(t_command *command, t_token token[MAX_TAB])
 	{
 		if (token[i].type >= SINGLE_QUOTE_STR && token[i].type <= ENV_VAR)
 			add_arg(&command->s_command[command->n], token[i].content);
-		fd_gestion(command, token, &i, command->n);
+		fd_gestion(command, token, &i);
 		if (token[i].type == PIPE)
 		{
 			command->n++;
@@ -39,15 +39,6 @@ void	ft_parse(t_command *command, t_token token[MAX_TAB])
 		}
 		i++;
 	}
-
-	// (void) command;
- 	// // COMBAK: lex tester here
-	// printf("\n\n");
- 	// while ((*token).type)
- 	// {
- 	// 	printf("type : %d\ncontent : %s\n\n", (*token).type, (*token).content);
- 	// 	token++;
- 	// }
 }
 
 static void	reset_command(t_command *cmd)
@@ -59,10 +50,10 @@ static void	reset_command(t_command *cmd)
 	cmd->is_valid = 1;
 	cmd->in_fd = 0;
 	cmd->out_fd = 1;
+	cmd->do_read_stdin = 0;
 	while (i < MAX_TAB)
 	{
 		cmd->s_command[i].nb_args = 0;
-		cmd->s_command[i].do_read_stdin = 0;
 		i++;
 	}
 }
@@ -72,7 +63,7 @@ static void	add_arg(t_simple_command *c, char arg[MAX_TAB])
 	ft_strlcpy(c->arg[(c->nb_args)++], arg, MAX_TAB);
 }
 
-static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i, int n)
+static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i)
 {
 	if (tk[*i].type >= IN_LIMIT && tk[*i].type <= OUT_FILE)
 	{
@@ -91,7 +82,7 @@ static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i, int n)
 				printf("File don't exists : %s\n", tk[*i].content);
 				c->is_valid = 0;
 			}
-			c->s_command[n].do_read_stdin = 0;
+			c->do_read_stdin = 0;
 		}
 		else if (tk[*i - 1].type == OUT_FILE || tk[*i - 1].type == OUT_APPEND)
 		{
@@ -104,8 +95,8 @@ static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i, int n)
 		}
 		else if (tk[*i - 1].type == IN_LIMIT)
 		{
-			ft_strlcpy(c->s_command[n].eof_marker, tk[*i].content, MAX_TAB);
-			c->s_command[n].do_read_stdin = 1;
+			ft_strlcpy(c->eof_marker, tk[*i].content, MAX_TAB);
+			c->do_read_stdin = 1;
 		}
 	}
 }

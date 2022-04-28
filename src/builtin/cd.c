@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 09:19:29 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/13 08:21:10 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 07:42:52 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	use_path(char *path, t_mshell *mshell);
 
-int	ft_cd(char **args, t_mshell *mshell)
+int	ft_cd(char args[MAX_TAB][MAX_TAB], t_mshell *mshell)
 {
 	char	*tmp;
 

@@ -6,13 +6,15 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:37:22 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/08 07:39:45 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 07:41:34 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_pwd(t_mshell *mshell)
+int	ft_pwd(char **args, t_mshell *mshell)
 {
-    printf("%s\n", mshell->path);
+	printf("%s\n", mshell->path);
+	return (0);
+	(void) args;
 }

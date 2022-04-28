@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 07:40:46 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/27 09:18:54 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 07:29:00 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXECUTE_H
 
 # include "minishell.h"
+# include "builtin.h"
 
 # ifndef T_EXEC
 #  define T_EXEC
