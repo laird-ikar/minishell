@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/27 09:27:33 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 09:28:43 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_mshell
 	char		*line;
 	char		path[MAX_TAB];
 	t_env		env[MAX_TAB];
-	size_t		env_size;
+	int			env_size;
 	t_token		token[MAX_TAB];
 	t_command	command;
 }	t_mshell;

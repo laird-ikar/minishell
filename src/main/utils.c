@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 08:14:08 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/15 19:36:59 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 09:31:21 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_setenv(t_mshell *mshell, char *name, char *value, int type)
 		ft_strlcpy(mshell->env[i].name, name, MAX_TAB);
 		ft_strlcpy(mshell->env[i].value, value, MAX_TAB);
 		mshell->env[i].is_exported = type;
+		mshell->env_size++;
 		return ;
 	}
 }
