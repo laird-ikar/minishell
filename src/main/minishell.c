@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/27 09:05:06 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 08:44:40 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,5 @@ static void	set_env(t_mshell *mshell, char **envp)
 		ft_setenv(mshell, name, value, EXPORTED);
 		envp++;
 	}
+	ft_setenv(mshell, "?", "0", LOCAL);
 }

@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 07:28:17 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 08:21:53 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	ft_parse(t_command *command, t_token token[MAX_TAB])
 
 	reset_command(command);
 	i = 0;
-	command->n = 0;
+	command->n = 1;
 	while (i < MAX_TAB && token[i].type)
 	{
 		if (token[i].type >= SINGLE_QUOTE_STR && token[i].type <= ENV_VAR)
-			add_arg(&command->s_command[command->n], token[i].content);
+			add_arg(&command->s_command[command->n - 1], token[i].content);
 		fd_gestion(command, token, &i);
 		if (token[i].type == PIPE)
 		{
@@ -44,6 +44,7 @@ void	ft_parse(t_command *command, t_token token[MAX_TAB])
 static void	reset_command(t_command *cmd)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	cmd->n = 0;
@@ -54,6 +55,9 @@ static void	reset_command(t_command *cmd)
 	while (i < MAX_TAB)
 	{
 		cmd->s_command[i].nb_args = 0;
+		j = 0;
+		while (j < MAX_TAB)
+			cmd->s_command[i].arg[j++][0] = '\0';
 		i++;
 	}
 }

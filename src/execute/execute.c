@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 07:47:26 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 08:43:36 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_execute(t_mshell *mshell, t_command *command)
 	int		i;
 	t_exec	exec;
 
-	printf("exec n = %d\n", command->n);
 	if (!command->is_valid)
 		return ;
 	i = -1;
@@ -36,7 +35,6 @@ void	ft_execute(t_mshell *mshell, t_command *command)
 	// TODO: implement << input
 	while (++i < command->n)
 	{
-		printf("in while\n");
 		fd_game(&exec, command, i);
 		pid_game(&exec, mshell, command, i);
 	}
@@ -48,20 +46,31 @@ static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i)
 {
 	char	*tmp;
 
+	if (is_builtin(cmd->s_command[i].arg[0]) >= 0)
+	{
+		exec->ret = simple_exec(cmd->s_command[i], mshell);
+		tmp = ft_itoa(exec->ret);
+		ft_setenv(mshell, "?", tmp, LOCAL);
+		free (tmp);
+		return ;
+	}
 	exec->pid = fork();
 	if (!exec->pid)
 	{
-		printf("fork child\n");
 		exec->ret = simple_exec(cmd->s_command[i], mshell);
 		exit(exec->ret);
 	}
 	else
 	{
-		printf("fork parent\n");
 		waitpid(exec->pid, &exec->ret, 0);
-		tmp = ft_itoa(exec->ret);
-		ft_setenv(mshell, "?", tmp, LOCAL);
-		free (tmp);
+		if (WIFEXITED(exec->ret))
+		{
+			tmp = ft_itoa(WEXITSTATUS(exec->ret));
+			ft_setenv(mshell, "?", tmp, LOCAL);
+			free (tmp);
+		}
+		else
+			ft_setenv(mshell, "?", "127", LOCAL);
 	}
 }
 
@@ -70,10 +79,8 @@ static int	simple_exec(t_simple_command cmd, t_mshell *mshell)
 	int	ret;
 
 	ret = is_builtin(cmd.arg[0]);
-	printf("simple exec :)\n");
 	if (ret >= 0)
 		return ((g_builtin[ret])(cmd.arg, mshell));
-	printf("simple exec :(\n");
 	return (127);
 }
 
