@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 08:43:36 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/28 08:48:59 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i);
 static int	simple_exec(t_simple_command cmd, t_mshell *mshell);
 static int	is_builtin(char arg[MAX_TAB]);
+static void	update_ret(t_mshell *mshell, int ret);
 
 typedef int	(*t_builtin)(char args[MAX_TAB][MAX_TAB], t_mshell *mshell);
 
@@ -44,14 +45,10 @@ void	ft_execute(t_mshell *mshell, t_command *command)
 
 static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i)
 {
-	char	*tmp;
-
 	if (is_builtin(cmd->s_command[i].arg[0]) >= 0)
 	{
 		exec->ret = simple_exec(cmd->s_command[i], mshell);
-		tmp = ft_itoa(exec->ret);
-		ft_setenv(mshell, "?", tmp, LOCAL);
-		free (tmp);
+		update_ret(mshell, exec->ret);
 		return ;
 	}
 	exec->pid = fork();
@@ -64,14 +61,19 @@ static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i)
 	{
 		waitpid(exec->pid, &exec->ret, 0);
 		if (WIFEXITED(exec->ret))
-		{
-			tmp = ft_itoa(WEXITSTATUS(exec->ret));
-			ft_setenv(mshell, "?", tmp, LOCAL);
-			free (tmp);
-		}
+			update_ret(mshell, WEXITSTATUS(exec->ret));
 		else
 			ft_setenv(mshell, "?", "127", LOCAL);
 	}
+}
+
+static void	update_ret(t_mshell *mshell, int ret)
+{
+	char	*tmp;
+
+	tmp = ft_itoa(ret);
+	ft_setenv(mshell, "?", tmp, LOCAL);
+	free (tmp);
 }
 
 static int	simple_exec(t_simple_command cmd, t_mshell *mshell)
