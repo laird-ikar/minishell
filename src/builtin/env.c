@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 07:40:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 09:43:48 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/29 09:08:58 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_env(char *args[MAX_TAB], t_mshell *mshell)
 {
 	int	i;
 
-	if (args[1][0])
+	if (args[1])
 	{
 		printf("our env does not support flags nor arguments :(\n");
 		return (-1);
