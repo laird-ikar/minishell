@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 07:41:12 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/29 09:24:55 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/04/29 09:30:44 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,18 @@ int	ft_export(char *args[MAX_TAB], t_mshell *mshell)
 		{
 			ft_memmove(tmp, args[i], ptr - args[i]);
 			tmp[ptr - args[i]] = '\0';
-			ft_setenv(mshell, tmp, ptr + 1, EXPORTED);
+			if (!ft_isalpha(tmp[0]))
+				printf("sorry, i cannot write on that var : %s\n", tmp);
+			else
+				ft_setenv(mshell, tmp, ptr + 1, EXPORTED);
 		}
 		else
-			ft_setenv(mshell, args[i], "", EXPORTED);
+		{
+			if (!ft_isalpha(args[i][0]))
+				printf("sorry, i cannot write on that var : %s\n", args[i]);
+			else
+				ft_setenv(mshell, args[i], "", EXPORTED);
+		}
 		i++;
 	}
 	return (0);

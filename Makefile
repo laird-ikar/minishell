@@ -6,14 +6,15 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 07:46:58 by bguyot            #+#    #+#              #
-#    Updated: 2022/04/18 20:45:31 by bguyot           ###   ########.fr        #
+#    Updated: 2022/04/29 14:22:22 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	minishell
 
 INCLUDE			=	./include/
-LIBFT			=	./libft/
+LIBFT			=	./libft/libft.a
+LIBFTDIR		=	./libft/
 MAIN			=	./src/main/
 BUILTIN			=	./src/builtin/
 LEX				=	./src/lex/
@@ -39,7 +40,7 @@ SRC_TEST		=	$(SRC_BUILTIN) $(SRC_LEX) $(SRC_PARSE) $(SRC_EXEC)			\
 					$(MAIN)execute_utils.c
 OBJ_TEST		=	$(SRC_TEST:.c=.o)
 
-CC				=	gcc
+CC				=	@gcc
 CFLAGS			=	-Wall -Wextra -Werror -fsanitize=address -g
 LDLIBS			=	-Llibft -lft -L/Users/$(USER)/.brew/opt/readline/lib		\
 					-L/usr/local/opt/readline/lib -lreadline
@@ -47,21 +48,26 @@ CPPFLAGS		=	-I/usr/local/opt/readline/include							\
 					-I/Users/$(USER)/.brew/opt/readline/include -Iinclude		\
 					-Ilibft
 
-RM				=	rm -rf
+RM				=	@rm -rf
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(MAKE) -C $(LIBFT)
+$(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $(NAME) $(LDLIBS) $(OBJ)
+	@printf "\e[36m\tCompilation \t[ ✓ ]\n\e[39m"
+
+$(LIBFT):
+	@$(MAKE) -C $(LIBFTDIR)
 
 clean:
-	$(MAKE) clean -C $(LIBFT)
+	@$(MAKE) clean -C $(LIBFTDIR)
 	$(RM) $(OBJ)
+	@printf "\e[31m\tClean \t\t[ ✓ ]\n\e[39m"
 
 fclean: clean
-	$(MAKE) fclean -C $(LIBFT)
+	@$(MAKE) fclean -C $(LIBFTDIR)
 	$(RM) $(NAME)
+	@printf "\e[35;5;161m\tBinary Clean \t[ ✓ ]\n\e[39m"
 
 re: fclean all
 
@@ -71,6 +77,3 @@ update_lib: fclean
 	$(RM) $(LIBFT).git $(LIBFT).gitignore
 
 .PHONY:	all clean fclean re
-
-
-
