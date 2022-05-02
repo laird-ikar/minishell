@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/02 09:02:06 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/02 09:13:41 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 
 static void	init(t_mshell *mshell, char **envp)
 {
-	int j;
+	int	j;
 	int	i;
 
 	mshell->running = 1;
@@ -56,7 +56,7 @@ static void	init(t_mshell *mshell, char **envp)
 		j = 0;
 		while (j < MAX_TAB)
 		mshell->command.s_command[i].arg[j++]
-			= ft_calloc(MAX_TAB, sizeof (char));
+				= ft_calloc(MAX_TAB, sizeof (char));
 		mshell->envtab[i]
 			= ft_calloc(MAX_TAB, sizeof (char));
 		i++;
@@ -65,15 +65,15 @@ static void	init(t_mshell *mshell, char **envp)
 
 static void	tini(t_mshell *mshell)
 {
-	int j;
-	int i;
+	int	j;
+	int	i;
 
 	i = 0;
 	while (i < MAX_TAB)
 	{
 		j = 0;
 		while (j < MAX_TAB)
-		free(mshell->command.s_command[i].arg[j++]);
+			free(mshell->command.s_command[i].arg[j++]);
 		free(mshell->envtab[i]);
 		i++;
 	}

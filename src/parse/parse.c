@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 12:03:34 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/02 09:14:48 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,16 @@ static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i)
 			}
 			c->do_read_stdin = 0;
 		}
-		else if (tk[*i - 1].type == OUT_FILE || tk[*i - 1].type == OUT_APPEND)
+		if (tk[*i - 1].type == OUT_FILE || tk[*i - 1].type == OUT_APPEND)
 		{
 			if (c->out_fd != 1)
 				close(c->out_fd);
 			if (tk[*i - 1].type == OUT_FILE)
-				c->out_fd = open(tk[*i].content, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+				c->out_fd = open(tk[*i].content, O_RDWR | O_CREAT | O_TRUNC,
+						S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 			else
-				c->out_fd = open(tk[*i].content, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+				c->out_fd = open(tk[*i].content, O_RDWR | O_CREAT | O_APPEND,
+						S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		}
 		else if (tk[*i - 1].type == IN_LIMIT)
 		{
