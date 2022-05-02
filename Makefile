@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 07:46:58 by bguyot            #+#    #+#              #
-#    Updated: 2022/04/29 14:22:22 by bguyot           ###   ########.fr        #
+#    Updated: 2022/04/29 14:35:55 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ OBJ_TEST		=	$(SRC_TEST:.c=.o)
 CC				=	@gcc
 CFLAGS			=	-Wall -Wextra -Werror -fsanitize=address -g
 LDLIBS			=	-Llibft -lft -L/Users/$(USER)/.brew/opt/readline/lib		\
-					-L/usr/local/opt/readline/lib -lreadline
+					-lreadline
 CPPFLAGS		=	-I/usr/local/opt/readline/include							\
 					-I/Users/$(USER)/.brew/opt/readline/include -Iinclude		\
 					-Ilibft
@@ -53,7 +53,7 @@ RM				=	@rm -rf
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $(NAME) $(LDLIBS) $(OBJ)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -o $(NAME) $(LDLIBS) $(OBJ)
 	@printf "\e[36m\tCompilation \t[ ✓ ]\n\e[39m"
 
 $(LIBFT):
@@ -61,19 +61,20 @@ $(LIBFT):
 
 clean:
 	@$(MAKE) clean -C $(LIBFTDIR)
-	$(RM) $(OBJ)
+	@$(RM) $(OBJ)
 	@printf "\e[31m\tClean \t\t[ ✓ ]\n\e[39m"
 
 fclean: clean
 	@$(MAKE) fclean -C $(LIBFTDIR)
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 	@printf "\e[35;5;161m\tBinary Clean \t[ ✓ ]\n\e[39m"
 
 re: fclean all
 
 update_lib: fclean
-	$(RM) $(LIBFT)
-	git clone git@github.com:laird-ikar/libft.git $(LIBFT)
-	$(RM) $(LIBFT).git $(LIBFT).gitignore
+	@$(RM) $(LIBFTDIR)
+	@git clone -q git@github.com:laird-ikar/libft.git $(LIBFTDIR)
+	@$(RM) $(LIBFTDIR).git $(LIBFTDIR).gitignore
+	@printf "\e[93m\tLibft Clone \t[ ✓ ]\n\e[39m"
 
 .PHONY:	all clean fclean re

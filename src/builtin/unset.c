@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 07:41:40 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/29 09:25:07 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/02 07:32:05 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 int	ft_unset(char *args[MAX_TAB], t_mshell *mshell)
 {
-	// TODO: unset
-	(void) args;
-	(void) mshell;
+	int	i;
+
+	i = 0;
+	while (i < MAX_TAB && args[i])
+	{
+		ft_setenv(mshell, args[i], "", UNSETED)
+		i++;
+	}
 	return (0);
 }

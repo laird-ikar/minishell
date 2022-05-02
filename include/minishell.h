@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 12:02:46 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/02 07:32:53 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ typedef struct s_token
 
 enum{
 	EXPORTED = 1,
-	LOCAL = 0
+	LOCAL = 0,
+	UNSETED = -1
 };
 
 typedef struct s_env
@@ -97,7 +98,7 @@ typedef struct s_env
 
 typedef struct s_simple_command
 {
-		char	*arg[MAX_TAB];
+	char	*arg[MAX_TAB];
 	int		nb_args;
 }	t_simple_command;
 # endif

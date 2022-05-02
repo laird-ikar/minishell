@@ -6,17 +6,18 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 07:41:12 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/29 09:30:44 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/02 07:31:16 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtin.h"
 
+static void	if_equals(t_mshell *mshell, char *args, char *ptr);
+
 int	ft_export(char *args[MAX_TAB], t_mshell *mshell)
 {
 	int		i;
 	char	*ptr;
-	char	tmp[MAX_TAB];
 
 	if (!args[1])
 		return (ft_env(args, mshell));
@@ -25,14 +26,7 @@ int	ft_export(char *args[MAX_TAB], t_mshell *mshell)
 	{
 		ptr = ft_strchr(args[i], '=');
 		if (ptr)
-		{
-			ft_memmove(tmp, args[i], ptr - args[i]);
-			tmp[ptr - args[i]] = '\0';
-			if (!ft_isalpha(tmp[0]))
-				printf("sorry, i cannot write on that var : %s\n", tmp);
-			else
-				ft_setenv(mshell, tmp, ptr + 1, EXPORTED);
-		}
+			if_equals(mshell, args[i], ptr);
 		else
 		{
 			if (!ft_isalpha(args[i][0]))
@@ -43,4 +37,16 @@ int	ft_export(char *args[MAX_TAB], t_mshell *mshell)
 		i++;
 	}
 	return (0);
+}
+
+static void	if_equals(t_mshell *mshell, char *args, char *ptr)
+{
+	char	tmp[MAX_TAB];
+
+	ft_memmove(tmp, args, ptr - args);
+	tmp[ptr - args] = '\0';
+	if (!ft_isalpha(tmp[0]))
+		printf("sorry, i cannot write on that var : %s\n", tmp);
+	else
+		ft_setenv(mshell, tmp, ptr + 1, EXPORTED);
 }
