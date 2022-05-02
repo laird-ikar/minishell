@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 07:40:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/29 09:08:58 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/02 08:42:33 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_env(char *args[MAX_TAB], t_mshell *mshell)
 	i = 0;
 	while (++i < mshell->env_size)
 	{
-		if (mshell->env[i].is_exported)
+		if (mshell->env[i].is_exported == EXPORTED)
 		{
 			printf("%s=%s\n", mshell->env[i].name, mshell->env[i].value);
 		}

@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 09:42:58 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/02 09:00:24 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i)
 	}
 	exec->pid = fork();
 	if (!exec->pid)
-	{
-		exec->ret = simple_exec(cmd->s_command[i], mshell);
-		exit(exec->ret);
-	}
+		exit(simple_exec(cmd->s_command[i], mshell));
 	else
 	{
 		waitpid(exec->pid, &exec->ret, 0);
@@ -78,12 +75,24 @@ static void	update_ret(t_mshell *mshell, int ret)
 
 static int	simple_exec(t_simple_command cmd, t_mshell *mshell)
 {
-	int	ret;
+	int		ret;
+	int		i;
+	char	*path;
 
 	ret = is_builtin(cmd.arg[0]);
 	if (ret >= 0)
 		return ((g_builtin[ret])(cmd.arg, mshell));
-	return (127);
+	path = find_bin(cmd.arg[0], mshell);
+	ret = 127;
+	if (path)
+	{
+		update_envtab(mshell);
+		ret = execve(path, cmd.arg, mshell->envtab);
+		i = 0;
+	}
+	else
+		printf("%s not found\n", cmd.arg[0]);//TODO: stderr
+	return (ret);
 }
 
 static int	is_builtin(char arg[MAX_TAB])

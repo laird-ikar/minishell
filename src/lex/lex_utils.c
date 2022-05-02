@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 09:35:17 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/27 08:59:57 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/02 08:28:51 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	expand(t_mshell *mshell, t_token token[MAX_TAB])
 				ft_getenv(mshell, token[i].content), MAX_TAB);
 		if (token[i].type == DOUBLE_QUOTE_STR)
 		{
-			split = ft_split(token[i].content, ' ');
+			split = ft_split(token[i].content, ' ');//TODO: replace with no malloc split
 			k = -1;
 			while (split[++k])
 			{

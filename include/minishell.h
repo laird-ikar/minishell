@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/02 07:32:53 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/02 09:00:33 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_token
 
 enum{
 	EXPORTED = 1,
-	LOCAL = 0,
+	LOCAL = -2,
 	UNSETED = -1
 };
 
@@ -127,6 +127,7 @@ typedef struct s_mshell
 	char		prompt[MAX_TAB];
 	char		*line;
 	char		path[MAX_TAB];
+	char		**envtab;
 	t_env		env[MAX_TAB];
 	int			env_size;
 	t_token		token[MAX_TAB];
