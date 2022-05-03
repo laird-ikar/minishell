@@ -6,14 +6,14 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/02 09:11:53 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/03 08:40:09 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
 
 static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i);
-static int	simple_exec(t_simple_command cmd, t_mshell *mshell);
+static int	simple_exec(t_simple_command cmd, t_mshell *mshell, t_exec *exec);
 static int	is_builtin(char arg[MAX_TAB]);
 static void	update_ret(t_mshell *mshell, int ret);
 
@@ -36,7 +36,6 @@ void	ft_execute(t_mshell *mshell, t_command *command)
 	// TODO: implement << input
 	while (++i < command->n)
 	{
-		fd_game(&exec, command, i);
 		pid_game(&exec, mshell, command, i);
 	}
 	dup2(exec.saved_in, 0);
@@ -47,15 +46,23 @@ static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i)
 {
 	if (is_builtin(cmd->s_command[i].arg[0]) >= 0)
 	{
-		exec->ret = simple_exec(cmd->s_command[i], mshell);
+		exec->ret = simple_exec(cmd->s_command[i], mshell, exec);
 		update_ret(mshell, exec->ret);
 		return ;
 	}
+	pipe(exec->pipe_fd);
 	exec->pid = fork();
 	if (!exec->pid)
-		exit(simple_exec(cmd->s_command[i], mshell));
+	{
+		dup2(exec->used_in, STDIN_FILENO);
+		if (i != cmd->n - 1)
+			dup2(exec->pipe_fd[1], STDOUT_FILENO);
+		exit(simple_exec(cmd->s_command[i], mshell, exec));
+	}
 	else
 	{
+		close(exec->pipe_fd[1]);
+		exec->used_in = exec->pipe_fd[0];
 		waitpid(exec->pid, &exec->ret, 0);
 		if (WIFEXITED(exec->ret))
 			update_ret(mshell, WEXITSTATUS(exec->ret));
@@ -73,7 +80,7 @@ static void	update_ret(t_mshell *mshell, int ret)
 	free (tmp);
 }
 
-static int	simple_exec(t_simple_command cmd, t_mshell *mshell)
+static int	simple_exec(t_simple_command cmd, t_mshell *mshell, t_exec *exec)
 {
 	int		ret;
 	int		i;
@@ -84,6 +91,7 @@ static int	simple_exec(t_simple_command cmd, t_mshell *mshell)
 		return ((g_builtin[ret])(cmd.arg, mshell));
 	path = find_bin(cmd.arg[0], mshell);
 	ret = 127;
+	close(exec->pipe_fd[0]);
 	if (path)
 	{
 		update_envtab(mshell);

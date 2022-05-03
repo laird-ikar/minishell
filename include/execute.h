@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 07:40:46 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/02 08:44:56 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/03 08:20:32 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_exec
 }	t_exec;
 # endif
 
-void	fd_game(t_exec *exec, t_command *command, int i);
 char	*find_bin(char *bin, t_mshell *mshell);
 void	update_envtab(t_mshell *mshell);
 
