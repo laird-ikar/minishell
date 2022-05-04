@@ -2,3 +2,4 @@
 *.a
 minishell
 .bash_history
+*.test

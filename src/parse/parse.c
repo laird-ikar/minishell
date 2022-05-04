@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/02 09:14:48 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/04 08:26:46 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_parse(t_command *command, t_token token[MAX_TAB])
 		}
 		i++;
 	}
+	if (!i)
+		command->is_valid = 0;
 }
 
 static void	reset_command(t_command *cmd)
@@ -74,9 +76,9 @@ static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i)
 {
 	if (tk[*i].type >= IN_LIMIT && tk[*i].type <= OUT_FILE)
 	{
-		if (!tk[(*i)++].type)
+		if (!tk[++(*i)].type)
 		{
-			printf("Unexpected last token : %s\n", tk[*i - 1].content);
+			printf("Unexpected token near : %s\n", tk[*i - 1].content);
 			c->is_valid = 0;
 		}
 		else if (tk[(*i) - 1].type == IN_FILE)

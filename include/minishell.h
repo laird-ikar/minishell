@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/02 09:00:33 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/04 08:59:25 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <signal.h>
 
 # ifndef MAX_TAB
 #  define MAX_TAB 128
@@ -93,6 +94,21 @@ typedef struct s_env
 }	t_env;
 # endif
 
+# ifndef T_EXEC
+#  define T_EXEC
+
+typedef struct s_exec
+{
+	int	saved_in;
+	int	saved_out;
+	int	used_in;
+	int	used_out;
+	int	pipe_fd[2];
+	int	pid;
+	int	ret;
+}	t_exec;
+# endif
+
 # ifndef T_SIMPLE_COMMAND
 #  define T_SIMPLE_COMMAND
 
@@ -132,6 +148,7 @@ typedef struct s_mshell
 	int			env_size;
 	t_token		token[MAX_TAB];
 	t_command	command;
+	t_exec		exec;
 }	t_mshell;
 # endif
 
@@ -141,5 +158,7 @@ void		ft_setenv(t_mshell *mshell, char *name, char *value, int type);
 void		ft_lex(t_mshell *mshell, t_token token[MAX_TAB], char *line);
 void		ft_parse(t_command *command, t_token token[MAX_TAB]);
 char		*ft_getenv(t_mshell *mshell, char *name);
+void		sig_c(int sig);
+void		sig_b(int sig);
 
 #endif

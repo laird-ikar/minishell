@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 07:46:58 by bguyot            #+#    #+#              #
-#    Updated: 2022/04/29 14:35:55 by bguyot           ###   ########.fr        #
+#    Updated: 2022/05/04 08:42:37 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LEX				=	./src/lex/
 PARSE			=	./src/parse/
 EXEC			=	./src/execute/
 
-FILES_MAIN		=	minishell.c utils.c
+FILES_MAIN		=	minishell.c utils.c signal_helper.c	
 FILES_BUILTIN	=	cd.c echo.c env.c exit.c export.c pwd.c unset.c
 FILES_LEX		=	lex.c lex_utils.c
 FILES_PARSE		=	parse.c

@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 09:19:29 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/28 09:43:39 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/04 07:43:46 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_cd(char *args[MAX_TAB], t_mshell *mshell)
 	char	*tmp;
 
 	tmp = ft_getenv(mshell, "PWD");
-	if (args[1][0] && ft_strcmp(args[1], "~"))
+	if (args[1] && ft_strcmp(args[1], "~"))
 	{
 		if (use_path(args[1], mshell))
 			return (1);

@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.h                                          :+:      :+:    :+:   */
+/*   signal_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 07:40:46 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/04 08:32:34 by bguyot           ###   ########.fr       */
+/*   Created: 2022/05/04 08:29:04 by bguyot            #+#    #+#             */
+/*   Updated: 2022/05/04 09:18:01 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
+#include "../../include/minishell.h"
 
-# include "minishell.h"
-# include "builtin.h"
+extern t_mshell	*mshell_ptr;
 
-char	*find_bin(char *bin, t_mshell *mshell);
-void	update_envtab(t_mshell *mshell);
+void	sig_c(int sig)
+{
+	(void) sig;
+	if (kill(mshell_ptr->exec.pid, SIGKILL) == -1)
+		printf("\n%s", mshell_ptr->prompt);
+}
 
-#endif
+void	sig_b(int sig)
+{
+	rl_redisplay ();
+	(void) sig;
+}
