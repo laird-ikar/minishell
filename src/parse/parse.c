@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/04 08:26:46 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:44:37 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ static void	add_arg(t_simple_command *c, char *arg)
 
 static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i)
 {
+	char	*line;
+
 	if (tk[*i].type >= IN_LIMIT && tk[*i].type <= OUT_FILE)
 	{
 		if (!tk[++(*i)].type)
@@ -106,8 +108,21 @@ static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i)
 		}
 		else if (tk[*i - 1].type == IN_LIMIT)
 		{
-			ft_strlcpy(c->eof_marker, tk[*i].content, MAX_TAB);
-			c->do_read_stdin = 1;
+			if (c->in_fd != 0)
+				close(c->in_fd);
+			c->in_fd = open("..__in", O_RDWR | O_CREAT | O_TRUNC,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			line = readline("> ");
+			while (ft_strcmp(line, tk[*i].content	))
+			{
+				write(c->in_fd, line, ft_strlen(line));
+				write(c->in_fd, "\n", 1);
+				line = readline("> ");
+			}
+			close(c->in_fd);
+			c->in_fd = open("..__in", O_RDWR,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			c->do_read_stdin = 0;
 		}
 	}
 }

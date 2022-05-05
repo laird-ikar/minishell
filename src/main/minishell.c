@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/05 16:09:29 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:37:35 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_mshell	*g_mshell_ptr;
 int	main(int argc, char **argv, char **envp)
 {
 	t_mshell	mshell;
+	char		**args;
 
 	g_mshell_ptr = &mshell;
 	init(&mshell, envp);
@@ -36,6 +37,11 @@ int	main(int argc, char **argv, char **envp)
 		ft_execute(&mshell, &mshell.command);
 	}
 	tini(&mshell);
+	args = ft_calloc(4, sizeof (char *));
+	args[0] = ft_strdup("rm");
+	args[1] = ft_strdup("-rf");
+	args[2] = ft_strdup("..__in");
+	execve("/bin/rm", args, NULL);
 	(void) argc;
 	(void) argv;
 }
@@ -47,6 +53,7 @@ static void	init(t_mshell *mshell, char **envp)
 	struct termios tmp;
 
 	tcgetattr(0, &tmp);
+	rl_catch_signals = 0;
 	tmp.c_lflag &= ~ECHOCTL;
 	tmp.c_lflag |= ECHO | NOFLSH;
 	tcgetattr(0, &mshell->save);

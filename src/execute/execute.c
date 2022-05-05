@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/04 08:44:40 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:27:49 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_builtin	g_builtin[]
 
 void	ft_execute(t_mshell *mshell, t_command *command)
 {
-	int		i;
+	int	i;
 
 	if (!command->is_valid)
 		return ;
@@ -32,7 +32,6 @@ void	ft_execute(t_mshell *mshell, t_command *command)
 	mshell->exec.saved_in = dup(0);
 	mshell->exec.saved_out = dup(1);
 	mshell->exec.used_in = command->in_fd;
-	// TODO: implement << input
 	while (++i < command->n)
 	{
 		pid_game(&mshell->exec, mshell, command, i);
