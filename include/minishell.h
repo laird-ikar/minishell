@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:34:18 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/04 08:59:25 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/05 15:52:32 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <termios.h>
+# include <curses.h>
+# include <term.h>
 
 # ifndef MAX_TAB
 #  define MAX_TAB 128
@@ -139,16 +142,17 @@ typedef struct s_command
 
 typedef struct s_mshell
 {
-	int			running;
-	char		prompt[MAX_TAB];
-	char		*line;
-	char		path[MAX_TAB];
-	char		**envtab;
-	t_env		env[MAX_TAB];
-	int			env_size;
-	t_token		token[MAX_TAB];
-	t_command	command;
-	t_exec		exec;
+	int				running;
+	char			prompt[MAX_TAB];
+	char			*line;
+	char			path[MAX_TAB];
+	char			**envtab;
+	t_env			env[MAX_TAB];
+	int				env_size;
+	t_token			token[MAX_TAB];
+	t_command		command;
+	t_exec			exec;
+	struct termios	save;
 }	t_mshell;
 # endif
 

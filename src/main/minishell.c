@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/04 09:16:22 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:09:29 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static void	init(t_mshell *mshell, char **envp);
 static void	tini(t_mshell *mshell);
 static void	set_env(t_mshell *t_mshell, char **envp);
 
-t_mshell	*mshell_ptr;
+t_mshell	*g_mshell_ptr;
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_mshell	mshell;
 
-	mshell_ptr = &mshell;
+	g_mshell_ptr = &mshell;
 	init(&mshell, envp);
 	while (mshell.running)
 	{
@@ -44,7 +44,13 @@ static void	init(t_mshell *mshell, char **envp)
 {
 	int	j;
 	int	i;
+	struct termios tmp;
 
+	tcgetattr(0, &tmp);
+	tmp.c_lflag &= ~ECHOCTL;
+	tmp.c_lflag |= ECHO | NOFLSH;
+	tcgetattr(0, &mshell->save);
+	tcsetattr(0, 0, &tmp);
 	signal(SIGINT, sig_c);
 	signal(SIGQUIT, sig_b);
 	mshell->running = 1;
@@ -84,6 +90,7 @@ static void	tini(t_mshell *mshell)
 	}
 	free(mshell->envtab);
 	rl_clear_history();
+	tcsetattr(0, 0, &mshell->save);
 }
 
 static void	set_env(t_mshell *mshell, char **envp)
