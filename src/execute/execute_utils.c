@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 07:39:28 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/04 08:57:47 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/05 17:09:14 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ char	*find_bin(char *bin, t_mshell *mshell)
 		ft_strlcpy(mshell->path, split[i++], MAX_TAB);
 		ft_strlcat(mshell->path, "/", MAX_TAB);
 		ft_strlcat(mshell->path, bin, MAX_TAB);
-		fd = open(mshell->path, O_RDONLY);
-		if (fd >= 0)
+		fd = access(mshell->path, X_OK);
+		if (!fd)
 			has_find = 1;
-		if (fd >= 0)
-			close(fd);
 	}
 	i = 0;
 	while (split[i])//TEMP: to remove when no malloc split
