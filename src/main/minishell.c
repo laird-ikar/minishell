@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/05 16:37:35 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/06 12:12:16 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	init(t_mshell *mshell, char **envp);
 static void	tini(t_mshell *mshell);
 static void	set_env(t_mshell *t_mshell, char **envp);
+static void	init_next(t_mshell *mshell, int *i, int *j);
 
 t_mshell	*g_mshell_ptr;
 
@@ -48,9 +49,9 @@ int	main(int argc, char **argv, char **envp)
 
 static void	init(t_mshell *mshell, char **envp)
 {
-	int	j;
-	int	i;
-	struct termios tmp;
+	int				j;
+	int				i;
+	struct termios	tmp;
 
 	tcgetattr(0, &tmp);
 	rl_catch_signals = 0;
@@ -69,15 +70,20 @@ static void	init(t_mshell *mshell, char **envp)
 	mshell->envtab
 		= ft_calloc(MAX_TAB, sizeof (char *));
 	i = 0;
-	while (i < MAX_TAB)
+	init_next(mshell, &i, &j);
+}
+
+static void	init_next(t_mshell *mshell, int *i, int *j)
+{
+	while (*i < MAX_TAB)
 	{
-		j = 0;
-		while (j < MAX_TAB)
-		mshell->command.s_command[i].arg[j++]
+		*j = 0;
+		while (*j < MAX_TAB)
+		mshell->command.s_command[*i].arg[(*j)++]
 				= ft_calloc(MAX_TAB, sizeof (char));
-		mshell->envtab[i]
+		mshell->envtab[*i]
 			= ft_calloc(MAX_TAB, sizeof (char));
-		i++;
+		(*i)++;
 	}
 }
 

@@ -6,21 +6,16 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/05 17:09:57 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/06 12:12:48 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
 
 static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i);
-static int	simple_exec(t_simple_command cmd, t_mshell *mshell, t_exec *exec);
 static int	is_builtin(char arg[MAX_TAB]);
-static void	update_ret(t_mshell *mshell, int ret);
 
 typedef int	(*t_builtin)(char *args[MAX_TAB], t_mshell *mshell);
-
-t_builtin	g_builtin[]
-	= {ft_cd, ft_echo, ft_env, ft_exit, ft_export, ft_pwd, ft_unset};
 
 void	ft_execute(t_mshell *mshell, t_command *command)
 {
@@ -57,29 +52,10 @@ static void	pid_game(t_exec *exec, t_mshell *mshell, t_command *cmd, int i)
 		dup2(exec->saved_out, STDOUT_FILENO);
 		return ;
 	}
-	exec->pid = fork();
-	if (!exec->pid)
-	{
-		dup2(exec->used_in, STDIN_FILENO);
-		if (i != cmd->n - 1)
-			dup2(exec->pipe_fd[1], STDOUT_FILENO);
-		else
-			dup2(cmd->out_fd, STDOUT_FILENO);
-		exit(simple_exec(cmd->s_command[i], mshell, exec));
-	}
-	else
-	{
-		close(exec->pipe_fd[1]);
-		exec->used_in = exec->pipe_fd[0];
-		waitpid(exec->pid, &exec->ret, 0);
-		if (WIFEXITED(exec->ret))
-			update_ret(mshell, WEXITSTATUS(exec->ret));
-		else
-			ft_setenv(mshell, "?", "127", LOCAL);
-	}
+	the_fork(exec, mshell, cmd, i);
 }
 
-static void	update_ret(t_mshell *mshell, int ret)
+void	update_ret(t_mshell *mshell, int ret)
 {
 	char	*tmp;
 
@@ -88,15 +64,17 @@ static void	update_ret(t_mshell *mshell, int ret)
 	free (tmp);
 }
 
-static int	simple_exec(t_simple_command cmd, t_mshell *mshell, t_exec *exec)
+int	simple_exec(t_simple_command cmd, t_mshell *mshell, t_exec *exec)
 {
-	int		ret;
-	int		i;
-	char	*path;
+	int					ret;
+	int					i;
+	char				*path;
+	static t_builtin	builtin[] = {ft_cd, ft_echo, ft_env, ft_exit, ft_export,
+		ft_pwd, ft_unset};
 
 	ret = is_builtin(cmd.arg[0]);
 	if (ret >= 0)
-		return ((g_builtin[ret])(cmd.arg, mshell));
+		return ((builtin[ret])(cmd.arg, mshell));
 	path = find_bin(cmd.arg[0], mshell);
 	ret = 127;
 	close(exec->pipe_fd[0]);
@@ -107,7 +85,7 @@ static int	simple_exec(t_simple_command cmd, t_mshell *mshell, t_exec *exec)
 		i = 0;
 	}
 	else
-		printf("%s not found\n", cmd.arg[0]);//TODO: stderr
+		printf("%s not found\n", cmd.arg[0]);
 	return (ret);
 }
 

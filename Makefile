@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 07:46:58 by bguyot            #+#    #+#              #
-#    Updated: 2022/05/05 16:09:42 by bguyot           ###   ########.fr        #
+#    Updated: 2022/05/06 12:27:06 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ EXEC			=	./src/execute/
 FILES_MAIN		=	minishell.c utils.c signal_helper.c
 FILES_BUILTIN	=	cd.c echo.c env.c exit.c export.c pwd.c unset.c
 FILES_LEX		=	lex.c lex_utils.c
-FILES_PARSE		=	parse.c
+FILES_PARSE		=	parse.c parse_utils.c
 FILES_EXEC		=	execute.c execute_utils.c
 
 SRC_MAIN		=	$(addprefix $(MAIN),$(FILES_MAIN))
@@ -43,7 +43,7 @@ OBJ_TEST		=	$(SRC_TEST:.c=.o)
 CC				=	@gcc
 CFLAGS			=	-Wall -Wextra -Werror -fsanitize=address -g
 LDLIBS			=	-Llibft -lft												\
-					-lreadline -lcurses -L/Users/$(USER)/.brew/opt/readline/lib 
+					-lreadline -lcurses -L/Users/$(USER)/.brew/opt/readline/lib
 CPPFLAGS		=	-I/usr/local/opt/readline/include							\
 					-I/Users/$(USER)/.brew/opt/readline/include -Iinclude		\
 					-Ilibft

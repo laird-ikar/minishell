@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 07:39:28 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/05 17:09:14 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/06 12:07:46 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*find_bin(char *bin, t_mshell *mshell)
 	char	**split;
 
 	split = ft_split(ft_getenv(mshell, "PATH"), ':');
-	//TODO: replace with no malloc split
 	has_find = 0;
 	i = 0;
 	while (!has_find && split[i])
@@ -33,7 +32,7 @@ char	*find_bin(char *bin, t_mshell *mshell)
 			has_find = 1;
 	}
 	i = 0;
-	while (split[i])//TEMP: to remove when no malloc split
+	while (split[i])
 		free(split[i++]);
 	free(split);
 	if (has_find)
@@ -57,5 +56,30 @@ void	update_envtab(t_mshell *mshell)
 			ft_strlcat(mshell->envtab[j], mshell->env[i].value, MAX_TAB);
 			j++;
 		}
+		i++;
+	}
+}
+
+void	the_fork(t_exec *exec, t_mshell *mshell, t_command *cmd, int i)
+{
+	exec->pid = fork();
+	if (!exec->pid)
+	{
+		dup2(exec->used_in, STDIN_FILENO);
+		if (i != cmd->n - 1)
+			dup2(exec->pipe_fd[1], STDOUT_FILENO);
+		else
+			dup2(cmd->out_fd, STDOUT_FILENO);
+		exit(simple_exec(cmd->s_command[i], mshell, exec));
+	}
+	else
+	{
+		close(exec->pipe_fd[1]);
+		exec->used_in = exec->pipe_fd[0];
+		waitpid(exec->pid, &exec->ret, 0);
+		if (WIFEXITED(exec->ret))
+			update_ret(mshell, WEXITSTATUS(exec->ret));
+		else
+			ft_setenv(mshell, "?", "127", LOCAL);
 	}
 }

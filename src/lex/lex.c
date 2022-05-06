@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 07:43:32 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/27 09:22:11 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/06 12:08:08 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,5 @@ static void	words(char **line, t_token **token, int *i)
 			word[j++] = *((*line)++);
 		(*line)--;
 		set_token(&(*token)[(*i)++], word, WORD);
-		//TODO: if |s cut the work and add pipe tokens
 	}
 }
