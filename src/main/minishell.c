@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/09 07:10:21 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 07:23:40 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	args = ft_calloc(4, sizeof (char *));
 	args[0] = ft_strdup("rm");
 	args[1] = ft_strdup("-rf");
-	args[2] = ft_strdup("..__in");
+	args[2] = ft_strdup("..__in.tmp");
 	execve("/bin/rm", args, NULL);
 	(void) argc;
 	(void) argv;

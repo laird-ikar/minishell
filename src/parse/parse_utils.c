@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 12:26:06 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/06 12:26:19 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 07:23:55 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	fd_in_limit(t_command *c, t_token tk[MAX_TAB], int *i)
 			line = readline("> ");
 		}
 		close(c->in_fd);
-		c->in_fd = open("..__in", O_RDWR,
+		c->in_fd = open("..__in.tmp", O_RDWR,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		c->do_read_stdin = 0;
 	}
