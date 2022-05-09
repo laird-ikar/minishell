@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/06 12:12:16 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 07:10:21 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static void	set_env(t_mshell *mshell, char **envp)
 	char	name[MAX_TAB];
 	int		name_size;
 
-	while (*envp)
+	while (*envp && **envp)
 	{
 		value = ft_strchr(*envp, '=');
 		name_size = value - *envp + 1;
