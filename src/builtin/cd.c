@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 09:19:29 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/04 07:43:46 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 08:36:18 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_cd(char *args[MAX_TAB], t_mshell *mshell)
 	{
 		if (chdir(ft_getenv(mshell, "HOME")))
 		{
-			printf("Error : bad home\n");
+			ft_printf_error("Error : bad home\n");
 			return (1);
 		}
 	}
@@ -43,13 +43,13 @@ static int	use_path(char *path, t_mshell *mshell)
 	{
 		if (chdir(ft_getenv(mshell, "OLDPWD\n")))
 		{
-			printf("Error : bad oldpwd\n");
+			ft_printf_error("Error : bad oldpwd\n");
 			return (1);
 		}
 	}
 	else if (chdir(path))
 	{
-		printf("Error : bad path\n");
+		ft_printf_error("Error : bad path\n");
 		return (1);
 	}
 	return (0);

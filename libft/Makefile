@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/23 13:24:40 by bguyot            #+#    #+#              #
-#    Updated: 2022/04/29 14:24:38 by bguyot           ###   ########.fr        #
+#    Updated: 2022/05/09 08:45:20 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,16 @@ ft_lstmax.c ft_lstmin.c get_next_line.c ft_min.c ft_max.c ft_sqrt.c ft_tabjoin.c
 ft_printf/ft_printf.c ft_printf/ft_printf_chr.c ft_printf/ft_printf_int.c		\
 ft_printf/ft_printf_percent.c ft_printf/ft_printf_ptr.c							\
 ft_printf/ft_printf_str.c ft_printf/ft_printf_uint.c ft_printf/ft_printf_xint.c	\
-ft_printf/ft_printf_upper_xint.c ft_strndup.c ft_print_tab.c
+ft_printf/ft_printf_upper_xint.c												\
+ft_printf_error/ft_printf_error.c ft_printf_error/ft_printf_error_chr.c				\
+ft_printf_error/ft_printf_error_int.c ft_printf_error/ft_printf_error_percent.c	\
+ft_printf_error/ft_printf_error_ptr.c ft_printf_error/ft_printf_error_str.c		\
+ft_printf_error/ft_printf_error_uint.c ft_printf_error/ft_printf_error_xint.c	\
+ft_printf_error/ft_printf_error_upper_xint.c									\
+ft_strndup.c ft_print_tab.c
 OBJS 		= ${SRCS:.c=.o}
 CC			= @gcc
-RM			= @rm -f
+RM			= @rm -rf
 CFLAGS		= -Wall -Wextra -Werror
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/06 12:12:48 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 08:35:27 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	simple_exec(t_simple_command cmd, t_mshell *mshell, t_exec *exec)
 		i = 0;
 	}
 	else
-		printf("%s not found\n", cmd.arg[0]);
+		ft_printf_error("%s not found\n", cmd.arg[0]);
 	return (ret);
 }
 

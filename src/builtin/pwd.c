@@ -14,7 +14,7 @@
 
 int	ft_pwd(char *args[MAX_TAB], t_mshell *mshell)
 {
-	printf("%s\n", ft_getenv(mshell, "PWD"));
+	ft_printf("%s\n", ft_getenv(mshell, "PWD"));
 	return (0);
 	(void) args;
 }

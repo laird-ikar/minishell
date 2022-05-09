@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 07:41:12 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/02 07:31:16 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 08:35:49 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_export(char *args[MAX_TAB], t_mshell *mshell)
 		else
 		{
 			if (!ft_isalpha(args[i][0]))
-				printf("sorry, i cannot write on that var : %s\n", args[i]);
+				ft_printf_error("sorry, i cannot write on that var : %s\n", args[i]);
 			else
 				ft_setenv(mshell, args[i], "", EXPORTED);
 		}
@@ -46,7 +46,7 @@ static void	if_equals(t_mshell *mshell, char *args, char *ptr)
 	ft_memmove(tmp, args, ptr - args);
 	tmp[ptr - args] = '\0';
 	if (!ft_isalpha(tmp[0]))
-		printf("sorry, i cannot write on that var : %s\n", tmp);
+		ft_printf_error("sorry, i cannot write on that var : %s\n", tmp);
 	else
 		ft_setenv(mshell, tmp, ptr + 1, EXPORTED);
 }

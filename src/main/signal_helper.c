@@ -19,7 +19,7 @@ void	sig_c(int sig)
 	(void) sig;
 	if (kill(g_mshell_ptr->exec.pid, SIGKILL) == -1)
 	{
-		printf("\n%s", g_mshell_ptr->prompt);
+		ft_printf("\n%s", g_mshell_ptr->prompt);
 		rl_replace_line(" ", 0);
 		rl_redisplay();
 	}
@@ -28,5 +28,5 @@ void	sig_c(int sig)
 void	sig_b(int sig)
 {
 	if (kill(g_mshell_ptr->exec.pid, SIGKILL) != -1)
-		printf("^\\Quit: %d\n", sig);
+		ft_printf("^\\Quit: %d\n", sig);
 }

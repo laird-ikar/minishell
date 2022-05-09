@@ -22,10 +22,10 @@ int	ft_echo(char *args[MAX_TAB], t_mshell *mshell)
 	if (args[i] && !ft_strcmp(args[i], "-n"))
 		to_jump = i++ - 1;
 	while (i < MAX_TAB && args[i] && i + 1 < MAX_TAB && args[i + 1])
-		printf("%s ", args[i++]);
-	printf("%s", args[i++]);
+		ft_printf("%s ", args[i++]);
+	ft_printf("%s", args[i++]);
 	if (to_jump)
-		printf("\n");
+		ft_printf("\n");
 	return (0);
 	(void) mshell;
 }

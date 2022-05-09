@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_printf_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/28 07:40:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/09 08:36:04 by bguyot           ###   ########.fr       */
+/*   Created: 2022/03/02 10:39:57 by bguyot            #+#    #+#             */
+/*   Updated: 2022/05/09 08:38:44 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
+#include "ft_printf_error.h"
 
-int	ft_env(char *args[MAX_TAB], t_mshell *mshell)
+void	ft_printf_str(va_list args, int *count)
 {
-	int	i;
+	char	*str;
 
-	if (args[1])
+	str = va_arg(args, char *);
+	if (!str)
 	{
-		ft_printf_error("our env does not support flags nor arguments :(\n");
-		return (-1);
+		ft_putstr_fd("(null)", 2);
+		(*count) += 6;
 	}
-	i = 0;
-	while (++i < mshell->env_size)
+	else
 	{
-		if (mshell->env[i].is_exported == EXPORTED)
-		{
-			ft_printf("%s=%s\n", mshell->env[i].name, mshell->env[i].value);
-		}
+		ft_putstr_fd(str, 2);
+		(*count) += ft_strlen(str);
 	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/06 12:26:48 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 08:33:30 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_parse(t_command *command, t_token token[MAX_TAB])
 			command->n++;
 			if (!token[i + 1].type)
 			{
-				printf("Unexpected last token : %s\n", token[i].content);
+				ft_printf_error("Unexpected last token : %s\n", token[i].content);
 				command->is_valid = 0;
 			}
 		}
@@ -79,7 +79,7 @@ static void	fd_gestion(t_command *c, t_token tk[MAX_TAB], int *i)
 	{
 		if (!tk[++(*i)].type)
 		{
-			printf("Unexpected token near : %s\n", tk[*i - 1].content);
+			ft_printf_error("Unexpected token near : %s\n", tk[*i - 1].content);
 			c->is_valid = 0;
 			return ;
 		}
@@ -97,7 +97,7 @@ static void	fd_in_out(t_command *c, t_token tk[MAX_TAB], int *i)
 		c->in_fd = open(tk[*i].content, O_RDONLY);
 		if (c->in_fd < 0)
 		{
-			printf("File don't exists : %s\n", tk[*i].content);
+			ft_printf_error("File don't exists : %s\n", tk[*i].content);
 			c->is_valid = 0;
 		}
 		c->do_read_stdin = 0;

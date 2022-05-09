@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:24:47 by bguyot            #+#    #+#             */
-/*   Updated: 2022/04/25 07:56:36 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 08:44:24 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include "ft_printf/ft_printf.h"
+# include "ft_printf_error/ft_printf_error.h"
 
 # ifndef T_LIST
 #  define T_LIST
