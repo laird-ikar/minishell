@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:33:43 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/09 08:35:27 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 10:45:20 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	ft_execute(t_mshell *mshell, t_command *command)
 	mshell->exec.saved_out = dup(1);
 	mshell->exec.used_in = command->in_fd;
 	while (++i < command->n)
-	{
 		pid_game(&mshell->exec, mshell, command, i);
-	}
 	dup2(mshell->exec.saved_in, STDIN_FILENO);
 	dup2(mshell->exec.saved_out, STDOUT_FILENO);
 }

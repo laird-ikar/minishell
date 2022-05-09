@@ -6,7 +6,7 @@
 #    By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/24 07:46:58 by bguyot            #+#    #+#              #
-#    Updated: 2022/05/06 12:27:06 by bguyot           ###   ########.fr        #
+#    Updated: 2022/05/09 12:40:12 by bguyot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SRC_TEST		=	$(SRC_BUILTIN) $(SRC_LEX) $(SRC_PARSE) $(SRC_EXEC)			\
 OBJ_TEST		=	$(SRC_TEST:.c=.o)
 
 CC				=	@gcc
-CFLAGS			=	-Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS			=	-Wall -Wextra -Werror#-fsanitize=address -g
 LDLIBS			=	-Llibft -lft												\
 					-lreadline -lcurses -L/Users/$(USER)/.brew/opt/readline/lib
 CPPFLAGS		=	-I/usr/local/opt/readline/include							\

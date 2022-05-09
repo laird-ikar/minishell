@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 08:01:37 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/09 08:33:30 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/09 10:27:31 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	ft_parse(t_command *command, t_token token[MAX_TAB])
 			command->n++;
 			if (!token[i + 1].type)
 			{
-				ft_printf_error("Unexpected last token : %s\n", token[i].content);
+				ft_printf_error("Unexpected last token : %s\n",
+					token[i].content);
 				command->is_valid = 0;
 			}
 		}
