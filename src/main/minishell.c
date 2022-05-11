@@ -6,11 +6,12 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/09 07:23:40 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/11 09:55:03 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include "../../include/builtin.h"
 
 static void	init(t_mshell *mshell, char **envp);
 static void	tini(t_mshell *mshell);
@@ -38,6 +39,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_execute(&mshell, &mshell.command);
 	}
 	tini(&mshell);
+	ft_printf("exit\n");
 	args = ft_calloc(4, sizeof (char *));
 	args[0] = ft_strdup("rm");
 	args[1] = ft_strdup("-rf");
@@ -56,7 +58,7 @@ static void	init(t_mshell *mshell, char **envp)
 	tcgetattr(0, &tmp);
 	rl_catch_signals = 0;
 	tmp.c_lflag &= ~ECHOCTL;
-	tmp.c_lflag |= ECHO | NOFLSH;
+	tmp.c_lflag |= ECHO;
 	tcgetattr(0, &mshell->save);
 	tcsetattr(0, 0, &tmp);
 	signal(SIGINT, sig_c);

@@ -6,7 +6,7 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 08:29:04 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/05 17:02:50 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/11 09:51:22 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void	sig_c(int sig)
 		rl_replace_line(" ", 0);
 		rl_redisplay();
 	}
+	ft_setenv(g_mshell_ptr, "?", "1", LOCAL);
 }
 
 void	sig_b(int sig)
 {
 	if (kill(g_mshell_ptr->exec.pid, SIGKILL) != -1)
 		ft_printf("^\\Quit: %d\n", sig);
+	ft_setenv(g_mshell_ptr, "?", "0", LOCAL);
 }
