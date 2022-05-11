@@ -6,12 +6,11 @@
 /*   By: bguyot <bguyot@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 08:06:36 by bguyot            #+#    #+#             */
-/*   Updated: 2022/05/11 09:55:03 by bguyot           ###   ########.fr       */
+/*   Updated: 2022/05/11 13:39:59 by bguyot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include "../../include/builtin.h"
 
 static void	init(t_mshell *mshell, char **envp);
 static void	tini(t_mshell *mshell);
